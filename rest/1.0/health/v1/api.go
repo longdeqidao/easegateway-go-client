@@ -47,7 +47,7 @@ func (a HealthApi) Check() (*v1.APIResponse, error) {
 	if accepts != "" {
 		headers["Accept"] = accepts
 	}
-	response, err := a.Configuration.APIClient.CallAPI(path, method, nil, headers, queryParams())
+	response, err := a.Configuration.APIClient.CallAPI(path, method, nil, headers, queryParams)
 
 	u, _ := url.Parse(path)
 	u.RawQuery = queryParams.Encode()
