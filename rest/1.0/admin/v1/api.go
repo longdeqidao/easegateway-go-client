@@ -7,29 +7,28 @@ import (
 	"strings"
 
 	"github.com/hexdecteam/easegateway-go-client/rest/1.0/admin/v1/pdu"
+	"github.com/hexdecteam/easegateway-go-client/rest/1.0/common/v1"
 )
 
 type AdminApi struct {
-	Configuration *Configuration
+	Configuration *v1.Configuration
 }
 
 func NewAdminApi() *AdminApi {
-	configuration := NewConfiguration()
+	configuration := v1.NewConfiguration("http://localhost:9090/admin/v1")
 	return &AdminApi{
 		Configuration: configuration,
 	}
 }
 
 func NewAdminApiWithBasePath(basePath string) *AdminApi {
-	configuration := NewConfiguration()
-	configuration.BasePath = basePath
-
+	configuration := v1.NewConfiguration(basePath)
 	return &AdminApi{
 		Configuration: configuration,
 	}
 }
 
-func (a AdminApi) GetPipelineTypes() (*pdu.PipelineTypesRetrieveResponse, *APIResponse, error) {
+func (a AdminApi) GetPipelineTypes() (*pdu.PipelineTypesRetrieveResponse, *v1.APIResponse, error) {
 	method := strings.ToUpper("Get")
 	path := a.Configuration.BasePath + "/pipeline-types"
 	headers := make(map[string]string)
@@ -58,7 +57,7 @@ func (a AdminApi) GetPipelineTypes() (*pdu.PipelineTypesRetrieveResponse, *APIRe
 	u, _ := url.Parse(path)
 	u.RawQuery = queryParams.Encode()
 
-	ret := &APIResponse{Operation: "GetPipelineTypes", Method: method, RequestURL: u.String()}
+	ret := &v1.APIResponse{Operation: "GetPipelineTypes", Method: method, RequestURL: u.String()}
 	if response != nil {
 		ret.Response = response.RawResponse
 		ret.Payload = response.Body()
@@ -73,7 +72,7 @@ func (a AdminApi) GetPipelineTypes() (*pdu.PipelineTypesRetrieveResponse, *APIRe
 }
 
 func (a AdminApi) GetPipelines(pipelinesRetrieveRequest pdu.PipelinesRetrieveRequest) (
-	*pdu.PipelinesRetrieveResponse, *APIResponse, error) {
+	*pdu.PipelinesRetrieveResponse, *v1.APIResponse, error) {
 
 	method := strings.ToUpper("Get")
 	path := a.Configuration.BasePath + "/pipelines"
@@ -103,7 +102,7 @@ func (a AdminApi) GetPipelines(pipelinesRetrieveRequest pdu.PipelinesRetrieveReq
 
 	u, _ := url.Parse(path)
 	u.RawQuery = queryParams.Encode()
-	ret := &APIResponse{Operation: "GetPipelines", Method: method, RequestURL: u.String()}
+	ret := &v1.APIResponse{Operation: "GetPipelines", Method: method, RequestURL: u.String()}
 	if response != nil {
 		ret.Response = response.RawResponse
 		ret.Payload = response.Body()
@@ -116,7 +115,7 @@ func (a AdminApi) GetPipelines(pipelinesRetrieveRequest pdu.PipelinesRetrieveReq
 	return pdu, ret, err
 }
 
-func (a AdminApi) DeletePipelineByName(pipelineName string) (*APIResponse, error) {
+func (a AdminApi) DeletePipelineByName(pipelineName string) (*v1.APIResponse, error) {
 	method := strings.ToUpper("Delete")
 	path := fmt.Sprintf("%s/pipelines/%s", a.Configuration.BasePath, pipelineName)
 	headers := make(map[string]string)
@@ -143,7 +142,7 @@ func (a AdminApi) DeletePipelineByName(pipelineName string) (*APIResponse, error
 
 	u, _ := url.Parse(path)
 	u.RawQuery = queryParams.Encode()
-	ret := &APIResponse{Operation: "DeletePipelineByName", Method: method, RequestURL: u.String()}
+	ret := &v1.APIResponse{Operation: "DeletePipelineByName", Method: method, RequestURL: u.String()}
 	if response != nil {
 		ret.Response = response.RawResponse
 		ret.Payload = response.Body()
@@ -155,7 +154,7 @@ func (a AdminApi) DeletePipelineByName(pipelineName string) (*APIResponse, error
 	return ret, err
 }
 
-func (a AdminApi) GetPipelineByName(pipelineName string) (*pdu.PipelineSpec, *APIResponse, error) {
+func (a AdminApi) GetPipelineByName(pipelineName string) (*pdu.PipelineSpec, *v1.APIResponse, error) {
 	method := strings.ToUpper("Get")
 	path := fmt.Sprintf("%s/pipelines/%s", a.Configuration.BasePath, pipelineName)
 	headers := make(map[string]string)
@@ -183,7 +182,7 @@ func (a AdminApi) GetPipelineByName(pipelineName string) (*pdu.PipelineSpec, *AP
 
 	u, _ := url.Parse(path)
 	u.RawQuery = queryParams.Encode()
-	ret := &APIResponse{Operation: "GetPipelineByName", Method: method, RequestURL: u.String()}
+	ret := &v1.APIResponse{Operation: "GetPipelineByName", Method: method, RequestURL: u.String()}
 	if response != nil {
 		ret.Response = response.RawResponse
 		ret.Payload = response.Body()
@@ -196,7 +195,7 @@ func (a AdminApi) GetPipelineByName(pipelineName string) (*pdu.PipelineSpec, *AP
 	return pdu, ret, err
 }
 
-func (a AdminApi) CreatePipeline(pipelineCreationRequest pdu.PipelineCreationRequest) (*APIResponse, error) {
+func (a AdminApi) CreatePipeline(pipelineCreationRequest pdu.PipelineCreationRequest) (*v1.APIResponse, error) {
 	method := strings.ToUpper("Post")
 	path := a.Configuration.BasePath + "/pipelines"
 	headers := make(map[string]string)
@@ -224,7 +223,7 @@ func (a AdminApi) CreatePipeline(pipelineCreationRequest pdu.PipelineCreationReq
 
 	u, _ := url.Parse(path)
 	u.RawQuery = queryParams.Encode()
-	ret := &APIResponse{Operation: "CreatePipeline", Method: method, RequestURL: u.String()}
+	ret := &v1.APIResponse{Operation: "CreatePipeline", Method: method, RequestURL: u.String()}
 	if response != nil {
 		ret.Response = response.RawResponse
 		ret.Payload = response.Body()
@@ -236,7 +235,7 @@ func (a AdminApi) CreatePipeline(pipelineCreationRequest pdu.PipelineCreationReq
 	return ret, err
 }
 
-func (a AdminApi) UpdatePipeline(pipelineUpdateRequest pdu.PipelineUpdateRequest) (*APIResponse, error) {
+func (a AdminApi) UpdatePipeline(pipelineUpdateRequest pdu.PipelineUpdateRequest) (*v1.APIResponse, error) {
 	method := strings.ToUpper("Put")
 	path := a.Configuration.BasePath + "/pipelines"
 	headers := make(map[string]string)
@@ -264,7 +263,7 @@ func (a AdminApi) UpdatePipeline(pipelineUpdateRequest pdu.PipelineUpdateRequest
 
 	u, _ := url.Parse(path)
 	u.RawQuery = queryParams.Encode()
-	var ret = &APIResponse{Operation: "UpdatePipeline", Method: method, RequestURL: u.String()}
+	var ret = &v1.APIResponse{Operation: "UpdatePipeline", Method: method, RequestURL: u.String()}
 	if response != nil {
 		ret.Response = response.RawResponse
 		ret.Payload = response.Body()
@@ -276,7 +275,7 @@ func (a AdminApi) UpdatePipeline(pipelineUpdateRequest pdu.PipelineUpdateRequest
 	return ret, err
 }
 
-func (a AdminApi) GetPluginTypes() (*pdu.PluginTypesRetrieveResponse, *APIResponse, error) {
+func (a AdminApi) GetPluginTypes() (*pdu.PluginTypesRetrieveResponse, *v1.APIResponse, error) {
 	method := strings.ToUpper("Get")
 	path := a.Configuration.BasePath + "/plugin-types"
 	headers := make(map[string]string)
@@ -304,7 +303,7 @@ func (a AdminApi) GetPluginTypes() (*pdu.PluginTypesRetrieveResponse, *APIRespon
 
 	u, _ := url.Parse(path)
 	u.RawQuery = queryParams.Encode()
-	ret := &APIResponse{Operation: "GetPluginTypes", Method: method, RequestURL: u.String()}
+	ret := &v1.APIResponse{Operation: "GetPluginTypes", Method: method, RequestURL: u.String()}
 	if localVarHttpResponse != nil {
 		ret.Response = localVarHttpResponse.RawResponse
 		ret.Payload = localVarHttpResponse.Body()
@@ -318,7 +317,7 @@ func (a AdminApi) GetPluginTypes() (*pdu.PluginTypesRetrieveResponse, *APIRespon
 }
 
 func (a AdminApi) GetPlugins(pluginsRetrieveRequest pdu.PluginsRetrieveRequest) (
-	*pdu.PluginsRetrieveResponse, *APIResponse, error) {
+	*pdu.PluginsRetrieveResponse, *v1.APIResponse, error) {
 
 	var method = strings.ToUpper("Get")
 	// create path and map variables
@@ -348,7 +347,7 @@ func (a AdminApi) GetPlugins(pluginsRetrieveRequest pdu.PluginsRetrieveRequest) 
 
 	u, _ := url.Parse(path)
 	u.RawQuery = queryParams.Encode()
-	ret := &APIResponse{Operation: "GetPlugins", Method: method, RequestURL: u.String()}
+	ret := &v1.APIResponse{Operation: "GetPlugins", Method: method, RequestURL: u.String()}
 	if response != nil {
 		ret.Response = response.RawResponse
 		ret.Payload = response.Body()
@@ -361,7 +360,7 @@ func (a AdminApi) GetPlugins(pluginsRetrieveRequest pdu.PluginsRetrieveRequest) 
 	return pdu, ret, err
 }
 
-func (a AdminApi) DeletePluginByName(pluginName string) (*APIResponse, error) {
+func (a AdminApi) DeletePluginByName(pluginName string) (*v1.APIResponse, error) {
 	method := strings.ToUpper("Delete")
 	// create path and map variables
 	path := fmt.Sprintf("%s/plugins/%s", a.Configuration.BasePath, pluginName)
@@ -389,7 +388,7 @@ func (a AdminApi) DeletePluginByName(pluginName string) (*APIResponse, error) {
 
 	u, _ := url.Parse(path)
 	u.RawQuery = queryParams.Encode()
-	ret := &APIResponse{Operation: "DeletePluginByName", Method: method, RequestURL: u.String()}
+	ret := &v1.APIResponse{Operation: "DeletePluginByName", Method: method, RequestURL: u.String()}
 	if response != nil {
 		ret.Response = response.RawResponse
 		ret.Payload = response.Body()
@@ -401,7 +400,7 @@ func (a AdminApi) DeletePluginByName(pluginName string) (*APIResponse, error) {
 	return ret, err
 }
 
-func (a AdminApi) GetPluginByName(pluginName string) (*pdu.PluginSpec, *APIResponse, error) {
+func (a AdminApi) GetPluginByName(pluginName string) (*pdu.PluginSpec, *v1.APIResponse, error) {
 	method := strings.ToUpper("Get")
 	path := fmt.Sprintf("%s/plugins/%s", a.Configuration.BasePath, pluginName)
 	headers := make(map[string]string)
@@ -429,7 +428,7 @@ func (a AdminApi) GetPluginByName(pluginName string) (*pdu.PluginSpec, *APIRespo
 
 	u, _ := url.Parse(path)
 	u.RawQuery = queryParams.Encode()
-	ret := &APIResponse{Operation: "GetPluginByName", Method: method, RequestURL: u.String()}
+	ret := &v1.APIResponse{Operation: "GetPluginByName", Method: method, RequestURL: u.String()}
 	if response != nil {
 		ret.Response = response.RawResponse
 		ret.Payload = response.Body()
@@ -442,7 +441,7 @@ func (a AdminApi) GetPluginByName(pluginName string) (*pdu.PluginSpec, *APIRespo
 	return pdu, ret, err
 }
 
-func (a AdminApi) CreatePlugin(pluginCreationRequest pdu.PluginCreationRequest) (*APIResponse, error) {
+func (a AdminApi) CreatePlugin(pluginCreationRequest pdu.PluginCreationRequest) (*v1.APIResponse, error) {
 	method := strings.ToUpper("Post")
 	path := a.Configuration.BasePath + "/plugins"
 	headers := make(map[string]string)
@@ -469,7 +468,7 @@ func (a AdminApi) CreatePlugin(pluginCreationRequest pdu.PluginCreationRequest) 
 
 	u, _ := url.Parse(path)
 	u.RawQuery = queryParams.Encode()
-	ret := &APIResponse{Operation: "CreatePlugin", Method: method, RequestURL: u.String()}
+	ret := &v1.APIResponse{Operation: "CreatePlugin", Method: method, RequestURL: u.String()}
 	if response != nil {
 		ret.Response = response.RawResponse
 		ret.Payload = response.Body()
@@ -481,7 +480,7 @@ func (a AdminApi) CreatePlugin(pluginCreationRequest pdu.PluginCreationRequest) 
 	return ret, err
 }
 
-func (a AdminApi) UpdatePlugin(pluginUpdateRequest pdu.PluginUpdateRequest) (*APIResponse, error) {
+func (a AdminApi) UpdatePlugin(pluginUpdateRequest pdu.PluginUpdateRequest) (*v1.APIResponse, error) {
 	method := strings.ToUpper("Put")
 	path := a.Configuration.BasePath + "/plugins"
 	headers := make(map[string]string)
@@ -508,7 +507,7 @@ func (a AdminApi) UpdatePlugin(pluginUpdateRequest pdu.PluginUpdateRequest) (*AP
 
 	u, _ := url.Parse(path)
 	u.RawQuery = queryParams.Encode()
-	ret := &APIResponse{Operation: "UpdatePlugin", Method: method, RequestURL: u.String()}
+	ret := &v1.APIResponse{Operation: "UpdatePlugin", Method: method, RequestURL: u.String()}
 	if response != nil {
 		ret.Response = response.RawResponse
 		ret.Payload = response.Body()

@@ -17,11 +17,11 @@ type Configuration struct {
 	Transport     *http.Transport
 }
 
-func NewConfiguration() *Configuration {
+func NewConfiguration(basePath string) *Configuration {
 	timeout := 120 * time.Second
 
 	cfg := &Configuration{
-		BasePath:      "http://localhost:9090/admin/v1",
+		BasePath:      basePath,
 		DefaultHeader: make(map[string]string),
 		APIKey:        make(map[string]string),
 		APIKeyPrefix:  make(map[string]string),

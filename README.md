@@ -20,7 +20,7 @@ import "github.com/hexdecteam/easegateway-go-client"
 
 ## Documentation for Administration API Endpoints
 
-All URIs are relative to *http://localhost/v1*
+All URIs are relative to *http://localhost:9090/admin/v1*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
@@ -36,3 +36,11 @@ Class | Method | HTTP request | Description
 *AdminApi* | **GetPluginByName** | **Get** /plugins/{pluginName} | Retrieves Plugin Instance
 *AdminApi* | **CreatePlugin** | **Post** /plugins | Creates Plugin Instance
 *AdminApi* | **UpdatePlugin** | **Put** /plugins | Updates Plugin Instance
+
+## Documentation for Health API Endpoints
+
+All URIs are relative to *http://localhost:9090/health/v1*
+
+Class | Method | HTTP request | Description
+------------ | ------------- | ------------- | -------------
+*HealthApi* | **Check** | **Get** /check | Checks Gateway Service Instance Existing
