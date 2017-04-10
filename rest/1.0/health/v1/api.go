@@ -12,16 +12,13 @@ type HealthApi struct {
 	Configuration *v1.Configuration
 }
 
-func NewHealthApi(host string, port int) *HealthApi {
-	host = strings.TrimSpace(host)
-	if len(host) == 0 {
-		host = "localhost"
-	}
-	if port < 0 || port > 65535 {
-		port = 9090
+func NewHealthApi(address string) *HealthApi {
+	address = strings.TrimSpace(address)
+	if len(address) == 0 {
+		address = "localhost:9090"
 	}
 
-	configuration := v1.NewConfiguration(fmt.Sprintf("http://%s:%d/health/v1", host, port))
+	configuration := v1.NewConfiguration(fmt.Sprintf("http://%s/health/v1", address))
 	return &HealthApi{
 		Configuration: configuration,
 	}
