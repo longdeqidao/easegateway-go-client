@@ -40,7 +40,7 @@ func (a StatisticsApi) GetGatewayAverageLoad() (*pdu.AvgLoad, *v1.APIResponse, e
 	}
 
 	// set Content-Type header
-	contentType := a.Configuration.APIClient.SelectHeaderContentType([]string{})
+	contentType := a.Configuration.APIClient.SelectHeaderContentType([]string{"application/json"})
 	if contentType != "" {
 		headers["Content-Type"] = contentType
 	}
@@ -83,7 +83,7 @@ func (a StatisticsApi) GetGatewayResourceUsage() (*pdu.ResourceUsage, *v1.APIRes
 	}
 
 	// set Content-Type header
-	contentType := a.Configuration.APIClient.SelectHeaderContentType([]string{})
+	contentType := a.Configuration.APIClient.SelectHeaderContentType([]string{"application/json"})
 	if contentType != "" {
 		headers["Content-Type"] = contentType
 	}
@@ -126,7 +126,7 @@ func (a StatisticsApi) GetGatewayUpTime() (*pdu.UpTime, *v1.APIResponse, error) 
 	}
 
 	// set Content-Type header
-	localVarHttpContentType := a.Configuration.APIClient.SelectHeaderContentType([]string{})
+	localVarHttpContentType := a.Configuration.APIClient.SelectHeaderContentType([]string{"application/json"})
 	if localVarHttpContentType != "" {
 		headers["Content-Type"] = localVarHttpContentType
 	}
@@ -171,7 +171,7 @@ func (a StatisticsApi) GetPipelineIndicatorNames(pipelineName string) (
 	}
 
 	// set Content-Type header
-	contentType := a.Configuration.APIClient.SelectHeaderContentType([]string{})
+	contentType := a.Configuration.APIClient.SelectHeaderContentType([]string{"application/json"})
 	if contentType != "" {
 		headers["Content-Type"] = contentType
 	}
@@ -216,7 +216,7 @@ func (a StatisticsApi) GetPipelineIndicatorDesc(pipelineName string, indicatorNa
 	}
 
 	// set Content-Type header
-	contentType := a.Configuration.APIClient.SelectHeaderContentType([]string{})
+	contentType := a.Configuration.APIClient.SelectHeaderContentType([]string{"application/json"})
 	if contentType != "" {
 		headers["Content-Type"] = contentType
 	}
@@ -260,7 +260,7 @@ func (a StatisticsApi) GetPipelineIndicatorValue(pipelineName string, indicatorN
 	}
 
 	// set Content-Type header
-	contentType := a.Configuration.APIClient.SelectHeaderContentType([]string{})
+	contentType := a.Configuration.APIClient.SelectHeaderContentType([]string{"application/json"})
 	if contentType != "" {
 		headers["Content-Type"] = contentType
 	}
@@ -305,7 +305,7 @@ func (a StatisticsApi) GetPluginIndicatorNames(pipelineName string, pluginName s
 	}
 
 	// set Content-Type header
-	contentType := a.Configuration.APIClient.SelectHeaderContentType([]string{})
+	contentType := a.Configuration.APIClient.SelectHeaderContentType([]string{"application/json"})
 	if contentType != "" {
 		headers["Content-Type"] = contentType
 	}
@@ -352,7 +352,7 @@ func (a StatisticsApi) GetPluginIndicatorDesc(pipelineName string, pluginName st
 	}
 
 	// set Content-Type header
-	contentType := a.Configuration.APIClient.SelectHeaderContentType([]string{})
+	contentType := a.Configuration.APIClient.SelectHeaderContentType([]string{"application/json"})
 	if contentType != "" {
 		headers["Content-Type"] = contentType
 	}
@@ -398,7 +398,7 @@ func (a StatisticsApi) GetPluginIndicatorValue(pipelineName string, pluginName s
 	}
 
 	// set Content-Type header
-	contentType := a.Configuration.APIClient.SelectHeaderContentType([]string{})
+	contentType := a.Configuration.APIClient.SelectHeaderContentType([]string{"application/json"})
 	if contentType != "" {
 		headers["Content-Type"] = contentType
 	}
@@ -443,7 +443,7 @@ func (a StatisticsApi) GetTaskIndicatorNames(pipelineName string) (*pdu.TaskIndi
 	}
 
 	// set Content-Type header
-	contentType := a.Configuration.APIClient.SelectHeaderContentType([]string{})
+	contentType := a.Configuration.APIClient.SelectHeaderContentType([]string{"application/json"})
 	if contentType != "" {
 		headers["Content-Type"] = contentType
 	}
@@ -489,7 +489,7 @@ func (a StatisticsApi) GetTaskIndicatorDesc(pipelineName string, indicatorName s
 	}
 
 	// set Content-Type header
-	contentType := a.Configuration.APIClient.SelectHeaderContentType([]string{})
+	contentType := a.Configuration.APIClient.SelectHeaderContentType([]string{"application/json"})
 	if contentType != "" {
 		headers["Content-Type"] = contentType
 	}
@@ -535,7 +535,7 @@ func (a StatisticsApi) GetTaskIndicatorValue(pipelineName string, indicatorName 
 	}
 
 	// set Content-Type header
-	contentType := a.Configuration.APIClient.SelectHeaderContentType([]string{})
+	contentType := a.Configuration.APIClient.SelectHeaderContentType([]string{"application/json"})
 	if contentType != "" {
 		headers["Content-Type"] = contentType
 	}

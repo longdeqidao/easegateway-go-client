@@ -40,7 +40,7 @@ func (a AdminApi) GetPipelineTypes() (*pdu.PipelineTypesRetrieveResponse, *v1.AP
 	}
 
 	// set Content-Type header
-	contentTypes := a.Configuration.APIClient.SelectHeaderContentType([]string{})
+	contentTypes := a.Configuration.APIClient.SelectHeaderContentType([]string{"application/json"})
 	if contentTypes != "" {
 		headers["Content-Type"] = contentTypes
 	}
@@ -85,7 +85,7 @@ func (a AdminApi) GetPipelines(pipelinesRetrieveRequest pdu.PipelinesRetrieveReq
 	}
 
 	// set Content-Type header
-	contentType := a.Configuration.APIClient.SelectHeaderContentType([]string{})
+	contentType := a.Configuration.APIClient.SelectHeaderContentType([]string{"application/json"})
 	if contentType != "" {
 		headers["Content-Type"] = contentType
 	}
@@ -127,7 +127,7 @@ func (a AdminApi) DeletePipelineByName(pipelineName string) (*v1.APIResponse, er
 	}
 
 	// set Content-Type header
-	contentType := a.Configuration.APIClient.SelectHeaderContentType([]string{})
+	contentType := a.Configuration.APIClient.SelectHeaderContentType([]string{"application/json"})
 	if contentType != "" {
 		headers["Content-Type"] = contentType
 	}
@@ -166,7 +166,7 @@ func (a AdminApi) GetPipelineByName(pipelineName string) (*pdu.PipelineSpec, *v1
 	}
 
 	// set Content-Type header
-	contentType := a.Configuration.APIClient.SelectHeaderContentType([]string{})
+	contentType := a.Configuration.APIClient.SelectHeaderContentType([]string{"application/json"})
 	if contentType != "" {
 		headers["Content-Type"] = contentType
 	}
@@ -207,7 +207,7 @@ func (a AdminApi) CreatePipeline(pipelineCreationRequest pdu.PipelineCreationReq
 	}
 
 	// set Content-Type header
-	contentType := a.Configuration.APIClient.SelectHeaderContentType([]string{})
+	contentType := a.Configuration.APIClient.SelectHeaderContentType([]string{"application/json"})
 	if contentType != "" {
 		headers["Content-Type"] = contentType
 	}
@@ -247,7 +247,7 @@ func (a AdminApi) UpdatePipeline(pipelineUpdateRequest pdu.PipelineUpdateRequest
 	}
 
 	// set Content-Type header
-	contentType := a.Configuration.APIClient.SelectHeaderContentType([]string{})
+	contentType := a.Configuration.APIClient.SelectHeaderContentType([]string{"application/json"})
 	if contentType != "" {
 		headers["Content-Type"] = contentType
 	}
@@ -287,7 +287,7 @@ func (a AdminApi) GetPluginTypes() (*pdu.PluginTypesRetrieveResponse, *v1.APIRes
 	}
 
 	// set Content-Type header
-	contentType := a.Configuration.APIClient.SelectHeaderContentType([]string{})
+	contentType := a.Configuration.APIClient.SelectHeaderContentType([]string{"application/json"})
 	if contentType != "" {
 		headers["Content-Type"] = contentType
 	}
@@ -331,7 +331,7 @@ func (a AdminApi) GetPlugins(pluginsRetrieveRequest pdu.PluginsRetrieveRequest) 
 	}
 
 	// set Content-Type header
-	contentType := a.Configuration.APIClient.SelectHeaderContentType([]string{})
+	contentType := a.Configuration.APIClient.SelectHeaderContentType([]string{"application/json"})
 	if contentType != "" {
 		headers["Content-Type"] = contentType
 	}
@@ -373,7 +373,7 @@ func (a AdminApi) DeletePluginByName(pluginName string) (*v1.APIResponse, error)
 	}
 
 	// set Content-Type header
-	contentType := a.Configuration.APIClient.SelectHeaderContentType([]string{})
+	contentType := a.Configuration.APIClient.SelectHeaderContentType([]string{"application/json"})
 	if contentType != "" {
 		headers["Content-Type"] = contentType
 	}
@@ -412,7 +412,7 @@ func (a AdminApi) GetPluginByName(pluginName string) (*pdu.PluginSpec, *v1.APIRe
 	}
 
 	// set Content-Type header
-	contentType := a.Configuration.APIClient.SelectHeaderContentType([]string{})
+	contentType := a.Configuration.APIClient.SelectHeaderContentType([]string{"application/json"})
 	if contentType != "" {
 		headers["Content-Type"] = contentType
 	}
@@ -453,7 +453,7 @@ func (a AdminApi) CreatePlugin(pluginCreationRequest pdu.PluginCreationRequest) 
 	}
 
 	// set Content-Type header
-	contentType := a.Configuration.APIClient.SelectHeaderContentType([]string{})
+	contentType := a.Configuration.APIClient.SelectHeaderContentType([]string{"application/json"})
 	if contentType != "" {
 		headers["Content-Type"] = contentType
 	}
@@ -492,7 +492,7 @@ func (a AdminApi) UpdatePlugin(pluginUpdateRequest pdu.PluginUpdateRequest) (*v1
 	}
 
 	// set Content-Type header
-	contentType := a.Configuration.APIClient.SelectHeaderContentType([]string{})
+	contentType := a.Configuration.APIClient.SelectHeaderContentType([]string{"application/json"})
 	if contentType != "" {
 		headers["Content-Type"] = contentType
 	}

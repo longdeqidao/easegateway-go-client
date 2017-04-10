@@ -37,7 +37,7 @@ func (a HealthApi) Check() (*v1.APIResponse, error) {
 	}
 
 	// set Content-Type header
-	contentTypes := a.Configuration.APIClient.SelectHeaderContentType([]string{})
+	contentTypes := a.Configuration.APIClient.SelectHeaderContentType([]string{"application/json"})
 	if contentTypes != "" {
 		headers["Content-Type"] = contentTypes
 	}
