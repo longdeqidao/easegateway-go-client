@@ -14,8 +14,16 @@ type StatisticsApi struct {
 	Configuration *v1.Configuration
 }
 
-func NewStatisticsApi() *StatisticsApi {
-	configuration := v1.NewConfiguration("http://localhost:9090/statistics/v1")
+func NewStatisticsApi(host string, port int) *StatisticsApi {
+	host = strings.TrimSpace(host)
+	if len(host) == 0 {
+		host = "localhost"
+	}
+	if port < 0 || port > 65535 {
+		port = 9090
+	}
+
+	configuration := v1.NewConfiguration(fmt.Sprintf("http://%s:%d/statistics/v1", host, port))
 	return &StatisticsApi{
 		Configuration: configuration,
 	}

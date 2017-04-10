@@ -14,8 +14,16 @@ type AdminApi struct {
 	Configuration *v1.Configuration
 }
 
-func NewAdminApi() *AdminApi {
-	configuration := v1.NewConfiguration("http://localhost:9090/admin/v1")
+func NewAdminApi(host string, port int) *AdminApi {
+	host = strings.TrimSpace(host)
+	if len(host) == 0 {
+		host = "localhost"
+	}
+	if port < 0 || port > 65535 {
+		port = 9090
+	}
+
+	configuration := v1.NewConfiguration(fmt.Sprintf("http://%s:%d/admin/v1", host, port))
 	return &AdminApi{
 		Configuration: configuration,
 	}

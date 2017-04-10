@@ -1,6 +1,7 @@
 package v1
 
 import (
+	"fmt"
 	"net/url"
 	"strings"
 
@@ -11,8 +12,16 @@ type HealthApi struct {
 	Configuration *v1.Configuration
 }
 
-func NewHealthApi() *HealthApi {
-	configuration := v1.NewConfiguration("http://localhost:9090/health/v1")
+func NewHealthApi(host string, port int) *HealthApi {
+	host = strings.TrimSpace(host)
+	if len(host) == 0 {
+		host = "localhost"
+	}
+	if port < 0 || port > 65535 {
+		port = 9090
+	}
+
+	configuration := v1.NewConfiguration(fmt.Sprintf("http://%s:%d/health/v1", host, port))
 	return &HealthApi{
 		Configuration: configuration,
 	}
