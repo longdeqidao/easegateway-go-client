@@ -76,8 +76,8 @@ func (a AdminApi) GetPipelineTypes() (*pdu.PipelineTypesRetrieveResponse, *v1.AP
 	return pdu, ret, err
 }
 
-func (a AdminApi) GetPipelines(pipelinesRetrieveRequest pdu.PipelinesRetrieveRequest) (
-	*pdu.PipelinesRetrieveResponse, *v1.APIResponse, error) {
+func (a AdminApi) GetPipelines(pipelinesRetrieveRequest *pdu.PipelinesRetrieveRequest) (
+*pdu.PipelinesRetrieveResponse, *v1.APIResponse, error) {
 
 	method := strings.ToUpper("Get")
 	path := a.Configuration.BasePath + "/pipelines"
@@ -102,8 +102,7 @@ func (a AdminApi) GetPipelines(pipelinesRetrieveRequest pdu.PipelinesRetrieveReq
 	}
 
 	pdu := new(pdu.PipelinesRetrieveResponse)
-	response, err := a.Configuration.APIClient.CallAPI(
-		path, method, &pipelinesRetrieveRequest, headers, queryParams)
+	response, err := a.Configuration.APIClient.CallAPI(path, method, pipelinesRetrieveRequest, headers, queryParams)
 
 	u, _ := url.Parse(path)
 	u.RawQuery = queryParams.Encode()
@@ -200,7 +199,7 @@ func (a AdminApi) GetPipelineByName(pipelineName string) (*pdu.PipelineSpec, *v1
 	return pdu, ret, err
 }
 
-func (a AdminApi) CreatePipeline(pipelineCreationRequest pdu.PipelineCreationRequest) (*v1.APIResponse, error) {
+func (a AdminApi) CreatePipeline(pipelineCreationRequest *pdu.PipelineCreationRequest) (*v1.APIResponse, error) {
 	method := strings.ToUpper("Post")
 	path := a.Configuration.BasePath + "/pipelines"
 	headers := make(map[string]string)
@@ -223,8 +222,7 @@ func (a AdminApi) CreatePipeline(pipelineCreationRequest pdu.PipelineCreationReq
 		headers["Accept"] = accept
 	}
 
-	response, err := a.Configuration.APIClient.CallAPI(
-		path, method, &pipelineCreationRequest, headers, queryParams)
+	response, err := a.Configuration.APIClient.CallAPI(path, method, pipelineCreationRequest, headers, queryParams)
 
 	u, _ := url.Parse(path)
 	u.RawQuery = queryParams.Encode()
@@ -240,7 +238,7 @@ func (a AdminApi) CreatePipeline(pipelineCreationRequest pdu.PipelineCreationReq
 	return ret, err
 }
 
-func (a AdminApi) UpdatePipeline(pipelineUpdateRequest pdu.PipelineUpdateRequest) (*v1.APIResponse, error) {
+func (a AdminApi) UpdatePipeline(pipelineUpdateRequest *pdu.PipelineUpdateRequest) (*v1.APIResponse, error) {
 	method := strings.ToUpper("Put")
 	path := a.Configuration.BasePath + "/pipelines"
 	headers := make(map[string]string)
@@ -263,8 +261,7 @@ func (a AdminApi) UpdatePipeline(pipelineUpdateRequest pdu.PipelineUpdateRequest
 		headers["Accept"] = accept
 	}
 
-	response, err := a.Configuration.APIClient.CallAPI(
-		path, method, &pipelineUpdateRequest, headers, queryParams)
+	response, err := a.Configuration.APIClient.CallAPI(path, method, pipelineUpdateRequest, headers, queryParams)
 
 	u, _ := url.Parse(path)
 	u.RawQuery = queryParams.Encode()
@@ -321,8 +318,8 @@ func (a AdminApi) GetPluginTypes() (*pdu.PluginTypesRetrieveResponse, *v1.APIRes
 	return pdu, ret, err
 }
 
-func (a AdminApi) GetPlugins(pluginsRetrieveRequest pdu.PluginsRetrieveRequest) (
-	*pdu.PluginsRetrieveResponse, *v1.APIResponse, error) {
+func (a AdminApi) GetPlugins(pluginsRetrieveRequest *pdu.PluginsRetrieveRequest) (
+*pdu.PluginsRetrieveResponse, *v1.APIResponse, error) {
 
 	var method = strings.ToUpper("Get")
 	// create path and map variables
@@ -348,7 +345,7 @@ func (a AdminApi) GetPlugins(pluginsRetrieveRequest pdu.PluginsRetrieveRequest) 
 	}
 
 	pdu := new(pdu.PluginsRetrieveResponse)
-	response, err := a.Configuration.APIClient.CallAPI(path, method, &pluginsRetrieveRequest, headers, queryParams)
+	response, err := a.Configuration.APIClient.CallAPI(path, method, pluginsRetrieveRequest, headers, queryParams)
 
 	u, _ := url.Parse(path)
 	u.RawQuery = queryParams.Encode()
@@ -446,7 +443,7 @@ func (a AdminApi) GetPluginByName(pluginName string) (*pdu.PluginSpec, *v1.APIRe
 	return pdu, ret, err
 }
 
-func (a AdminApi) CreatePlugin(pluginCreationRequest pdu.PluginCreationRequest) (*v1.APIResponse, error) {
+func (a AdminApi) CreatePlugin(pluginCreationRequest *pdu.PluginCreationRequest) (*v1.APIResponse, error) {
 	method := strings.ToUpper("Post")
 	path := a.Configuration.BasePath + "/plugins"
 	headers := make(map[string]string)
@@ -469,7 +466,7 @@ func (a AdminApi) CreatePlugin(pluginCreationRequest pdu.PluginCreationRequest) 
 		headers["Accept"] = accept
 	}
 
-	response, err := a.Configuration.APIClient.CallAPI(path, method, &pluginCreationRequest, headers, queryParams)
+	response, err := a.Configuration.APIClient.CallAPI(path, method, pluginCreationRequest, headers, queryParams)
 
 	u, _ := url.Parse(path)
 	u.RawQuery = queryParams.Encode()
@@ -485,7 +482,7 @@ func (a AdminApi) CreatePlugin(pluginCreationRequest pdu.PluginCreationRequest) 
 	return ret, err
 }
 
-func (a AdminApi) UpdatePlugin(pluginUpdateRequest pdu.PluginUpdateRequest) (*v1.APIResponse, error) {
+func (a AdminApi) UpdatePlugin(pluginUpdateRequest *pdu.PluginUpdateRequest) (*v1.APIResponse, error) {
 	method := strings.ToUpper("Put")
 	path := a.Configuration.BasePath + "/plugins"
 	headers := make(map[string]string)
@@ -508,7 +505,7 @@ func (a AdminApi) UpdatePlugin(pluginUpdateRequest pdu.PluginUpdateRequest) (*v1
 		headers["Accept"] = accept
 	}
 
-	response, err := a.Configuration.APIClient.CallAPI(path, method, &pluginUpdateRequest, headers, queryParams)
+	response, err := a.Configuration.APIClient.CallAPI(path, method, pluginUpdateRequest, headers, queryParams)
 
 	u, _ := url.Parse(path)
 	u.RawQuery = queryParams.Encode()
