@@ -24,7 +24,7 @@ vendor_clean:
 vendor_get:
 	GOPATH=${MKFILE_DIR}_vendor go get -d -u -v \
 		github.com/go-resty/resty \
-		github.com/hexdecteam/easegateway-go-client
+		github.com/hexdecteam/easegateway-go-client/...
 
 vendor_update: vendor_get
 	cd ${MKFILE_DIR} && rm -rf `find ./_vendor/src -type d -name .git` \
