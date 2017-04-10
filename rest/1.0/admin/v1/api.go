@@ -299,20 +299,20 @@ func (a AdminApi) GetPluginTypes() (*pdu.PluginTypesRetrieveResponse, *v1.APIRes
 	}
 
 	pdu := new(pdu.PluginTypesRetrieveResponse)
-	localVarHttpResponse, err := a.Configuration.APIClient.CallAPI(path, method, nil, headers, queryParams)
+	response, err := a.Configuration.APIClient.CallAPI(path, method, nil, headers, queryParams)
 
 	u, _ := url.Parse(path)
 	u.RawQuery = queryParams.Encode()
 	ret := &v1.APIResponse{Operation: "GetPluginTypes", Method: method, RequestURL: u.String()}
-	if localVarHttpResponse != nil {
-		ret.Response = localVarHttpResponse.RawResponse
-		ret.Payload = localVarHttpResponse.Body()
+	if response != nil {
+		ret.Response = response.RawResponse
+		ret.Payload = response.Body()
 	}
 
 	if err != nil {
 		return pdu, ret, err
 	}
-	err = json.Unmarshal(localVarHttpResponse.Body(), &pdu)
+	err = json.Unmarshal(response.Body(), &pdu)
 	return pdu, ret, err
 }
 
