@@ -108,7 +108,7 @@ func (a AdminApi) GetPipelines(pipelinesRetrieveRequest *pdu.PipelinesRetrieveRe
 	if err != nil {
 		return pdu, ret, err
 	}
-	err = json.Unmarshal(response.Body(), &pdu)
+	err = json.Unmarshal(response.Body(), pdu)
 	return pdu, ret, err
 }
 
@@ -184,7 +184,7 @@ func (a AdminApi) GetPipelineByName(pipelineName string) (*pdu.PipelineSpec, *v1
 	if err != nil {
 		return pdu, ret, err
 	}
-	err = json.Unmarshal(response.Body(), &pdu)
+	err = json.Unmarshal(response.Body(), pdu)
 	return pdu, ret, err
 }
 
@@ -297,7 +297,7 @@ func (a AdminApi) GetPluginTypes() (*pdu.PluginTypesRetrieveResponse, *v1.APIRes
 	if err != nil {
 		return pdu, ret, err
 	}
-	err = json.Unmarshal(response.Body(), &pdu)
+	err = json.Unmarshal(response.Body(), pdu)
 	return pdu, ret, err
 }
 
@@ -339,7 +339,7 @@ func (a AdminApi) GetPlugins(pluginsRetrieveRequest *pdu.PluginsRetrieveRequest)
 	if err != nil {
 		return pdu, ret, err
 	}
-	err = json.Unmarshal(response.Body(), &pdu)
+	err = json.Unmarshal(response.Body(), pdu)
 	return pdu, ret, err
 }
 
@@ -416,7 +416,7 @@ func (a AdminApi) GetPluginByName(pluginName string) (*pdu.PluginSpec, *v1.APIRe
 	if err != nil {
 		return pdu, ret, err
 	}
-	err = json.Unmarshal(response.Body(), &pdu)
+	err = json.Unmarshal(response.Body(), pdu)
 	return pdu, ret, err
 }
 

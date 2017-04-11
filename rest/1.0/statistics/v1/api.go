@@ -69,7 +69,7 @@ func (a StatisticsApi) GetGatewayAverageLoad() (*pdu.AvgLoad, *v1.APIResponse, e
 		return pdu, ret, err
 	}
 
-	err = json.Unmarshal(response.Body(), &pdu)
+	err = json.Unmarshal(response.Body(), pdu)
 	return pdu, ret, err
 }
 
@@ -109,7 +109,7 @@ func (a StatisticsApi) GetGatewayResourceUsage() (*pdu.ResourceUsage, *v1.APIRes
 		return pdu, ret, err
 	}
 
-	err = json.Unmarshal(response.Body(), &pdu)
+	err = json.Unmarshal(response.Body(), pdu)
 	return pdu, ret, err
 }
 
@@ -149,7 +149,7 @@ func (a StatisticsApi) GetGatewayUpTime() (*pdu.UpTime, *v1.APIResponse, error) 
 		return pdu, ret, err
 	}
 
-	err = json.Unmarshal(response.Body(), &pdu)
+	err = json.Unmarshal(response.Body(), pdu)
 	return pdu, ret, err
 }
 
@@ -191,7 +191,7 @@ func (a StatisticsApi) GetPipelineIndicatorNames(pipelineName string) (
 		return pdu, ret, err
 	}
 
-	err = json.Unmarshal(response.Body(), &pdu)
+	err = json.Unmarshal(response.Body(), pdu)
 	return pdu, ret, err
 }
 
@@ -232,7 +232,7 @@ func (a StatisticsApi) GetPipelineIndicatorDesc(pipelineName string, indicatorNa
 	if err != nil {
 		return pdu, ret, err
 	}
-	err = json.Unmarshal(response.Body(), &pdu)
+	err = json.Unmarshal(response.Body(), pdu)
 	return pdu, ret, err
 }
 
@@ -274,7 +274,7 @@ func (a StatisticsApi) GetPipelineIndicatorValue(pipelineName string, indicatorN
 		return pdu, ret, err
 	}
 
-	err = json.Unmarshal(response.Body(), &pdu)
+	err = json.Unmarshal(response.Body(), pdu)
 	return pdu, ret, err
 }
 
@@ -316,7 +316,7 @@ func (a StatisticsApi) GetPluginIndicatorNames(pipelineName string, pluginName s
 		return pdu, ret, err
 	}
 
-	err = json.Unmarshal(response.Body(), &pdu)
+	err = json.Unmarshal(response.Body(), pdu)
 	return pdu, ret, err
 }
 
@@ -360,7 +360,7 @@ func (a StatisticsApi) GetPluginIndicatorDesc(pipelineName string, pluginName st
 		return pdu, ret, err
 	}
 
-	err = json.Unmarshal(response.Body(), &pdu)
+	err = json.Unmarshal(response.Body(), pdu)
 	return pdu, ret, err
 }
 
@@ -403,7 +403,7 @@ func (a StatisticsApi) GetPluginIndicatorValue(pipelineName string, pluginName s
 		return pdu, ret, err
 	}
 
-	err = json.Unmarshal(response.Body(), &pdu)
+	err = json.Unmarshal(response.Body(), pdu)
 	return pdu, ret, err
 }
 
@@ -445,7 +445,7 @@ func (a StatisticsApi) GetTaskIndicatorNames(pipelineName string) (*pdu.TaskIndi
 		return pdu, ret, err
 	}
 
-	err = json.Unmarshal(response.Body(), &pdu)
+	err = json.Unmarshal(response.Body(), pdu)
 	return pdu, ret, err
 }
 
@@ -488,7 +488,7 @@ func (a StatisticsApi) GetTaskIndicatorDesc(pipelineName string, indicatorName s
 		return pdu, ret, err
 	}
 
-	err = json.Unmarshal(response.Body(), &pdu)
+	err = json.Unmarshal(response.Body(), pdu)
 	return pdu, ret, err
 }
 
@@ -531,6 +531,6 @@ func (a StatisticsApi) GetTaskIndicatorValue(pipelineName string, indicatorName 
 		return pdu, ret, err
 	}
 
-	err = json.Unmarshal(response.Body(), &pdu)
+	err = json.Unmarshal(response.Body(), pdu)
 	return pdu, ret, err
 }
