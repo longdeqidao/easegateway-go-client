@@ -8,6 +8,7 @@ import (
 
 	"github.com/hexdecteam/easegateway-go-client/rest/1.0/admin/v1/pdu"
 	"github.com/hexdecteam/easegateway-go-client/rest/1.0/common/v1"
+	common_pdu "github.com/hexdecteam/easegateway-go-client/rest/1.0/common/v1/pdu"
 )
 
 type AdminApi struct {
@@ -68,6 +69,17 @@ func (a AdminApi) GetPipelineTypes() (*pdu.PipelineTypesRetrieveResponse, *v1.AP
 	if err != nil {
 		return pdu, ret, err
 	}
+
+	if response.StatusCode() == 200 {
+		err = json.Unmarshal(response.Body(), pdu)
+	} else if len(response.Body()) > 0 {
+		e := common_pdu.Error{}
+		err = json.Unmarshal(response.Body(), &e)
+		if err == nil {
+			ret.Error = e
+		}
+	}
+
 	return pdu, ret, err
 }
 
@@ -108,7 +120,17 @@ func (a AdminApi) GetPipelines(pipelinesRetrieveRequest *pdu.PipelinesRetrieveRe
 	if err != nil {
 		return pdu, ret, err
 	}
-	err = json.Unmarshal(response.Body(), pdu)
+
+	if response.StatusCode() == 200 {
+		err = json.Unmarshal(response.Body(), pdu)
+	} else if len(response.Body()) > 0 {
+		e := common_pdu.Error{}
+		err = json.Unmarshal(response.Body(), &e)
+		if err == nil {
+			ret.Error = e
+		}
+	}
+
 	return pdu, ret, err
 }
 
@@ -184,7 +206,17 @@ func (a AdminApi) GetPipelineByName(pipelineName string) (*pdu.PipelineSpec, *v1
 	if err != nil {
 		return pdu, ret, err
 	}
-	err = json.Unmarshal(response.Body(), pdu)
+
+	if response.StatusCode() == 200 {
+		err = json.Unmarshal(response.Body(), pdu)
+	} else if len(response.Body()) > 0 {
+		e := common_pdu.Error{}
+		err = json.Unmarshal(response.Body(), &e)
+		if err == nil {
+			ret.Error = e
+		}
+	}
+
 	return pdu, ret, err
 }
 
@@ -297,12 +329,22 @@ func (a AdminApi) GetPluginTypes() (*pdu.PluginTypesRetrieveResponse, *v1.APIRes
 	if err != nil {
 		return pdu, ret, err
 	}
-	err = json.Unmarshal(response.Body(), pdu)
+
+	if response.StatusCode() == 200 {
+		err = json.Unmarshal(response.Body(), pdu)
+	} else if len(response.Body()) > 0 {
+		e := common_pdu.Error{}
+		err = json.Unmarshal(response.Body(), &e)
+		if err == nil {
+			ret.Error = e
+		}
+	}
+
 	return pdu, ret, err
 }
 
 func (a AdminApi) GetPlugins(pluginsRetrieveRequest *pdu.PluginsRetrieveRequest) (
-*pdu.PluginsRetrieveResponse, *v1.APIResponse, error) {
+	*pdu.PluginsRetrieveResponse, *v1.APIResponse, error) {
 
 	var method = strings.ToUpper("Get")
 	// create path and map variables
@@ -339,7 +381,17 @@ func (a AdminApi) GetPlugins(pluginsRetrieveRequest *pdu.PluginsRetrieveRequest)
 	if err != nil {
 		return pdu, ret, err
 	}
-	err = json.Unmarshal(response.Body(), pdu)
+
+	if response.StatusCode() == 200 {
+		err = json.Unmarshal(response.Body(), pdu)
+	} else if len(response.Body()) > 0 {
+		e := common_pdu.Error{}
+		err = json.Unmarshal(response.Body(), &e)
+		if err == nil {
+			ret.Error = e
+		}
+	}
+
 	return pdu, ret, err
 }
 
@@ -416,7 +468,17 @@ func (a AdminApi) GetPluginByName(pluginName string) (*pdu.PluginSpec, *v1.APIRe
 	if err != nil {
 		return pdu, ret, err
 	}
-	err = json.Unmarshal(response.Body(), pdu)
+
+	if response.StatusCode() == 200 {
+		err = json.Unmarshal(response.Body(), pdu)
+	} else if len(response.Body()) > 0 {
+		e := common_pdu.Error{}
+		err = json.Unmarshal(response.Body(), &e)
+		if err == nil {
+			ret.Error = e
+		}
+	}
+
 	return pdu, ret, err
 }
 
