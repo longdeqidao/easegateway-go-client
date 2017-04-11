@@ -2,23 +2,28 @@ package v1
 
 import (
 	"net/http"
+	"net/url"
+
+	"github.com/hexdecteam/easegateway-go-client/rest/1.0/common/v1/pdu"
 )
 
 type APIResponse struct {
 	*http.Response `json:"-"`
-	Message        string `json:"message,omitempty"`
-	Operation      string `json:"operation,omitempty"`
-	RequestURL     string `json:"url,omitempty"`
-	Method         string `json:"method,omitempty"`
-	Payload        []byte `json:"-"`
+	Error          pdu.Error `json:"message,omitempty"`
+	Operation      string    `json:"operation,omitempty"`
+	RequestURL     *url.URL  `json:"url,omitempty"`
+	Method         string    `json:"method,omitempty"`
+	Payload        []byte    `json:"-"`
 }
 
-func NewAPIResponse(r *http.Response) *APIResponse {
-	response := &APIResponse{Response: r}
+func NewAPIResponse(operation, method, path string, queryParams url.Values) *APIResponse {
+	u, _ := url.Parse(path)
+	u.RawQuery = queryParams.Encode()
+	response := &APIResponse{Operation: operation, Method: method, RequestURL: u}
 	return response
 }
 
-func NewAPIResponseWithError(errorMessage string) *APIResponse {
-	response := &APIResponse{Message: errorMessage}
+func NewAPIResponseWithError(err pdu.Error) *APIResponse {
+	response := &APIResponse{Error: err}
 	return response
 }

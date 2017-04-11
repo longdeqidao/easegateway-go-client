@@ -59,10 +59,7 @@ func (a StatisticsApi) GetGatewayAverageLoad() (*pdu.AvgLoad, *v1.APIResponse, e
 	pdu := new(pdu.AvgLoad)
 	response, err := a.Configuration.APIClient.CallAPI(path, method, nil, headers, queryParams)
 
-	u, _ := url.Parse(path)
-	u.RawQuery = queryParams.Encode()
-
-	ret := &v1.APIResponse{Operation: "GetGatewayAverageLoad", Method: method, RequestURL: u.String()}
+	ret := v1.NewAPIResponse("GetGatewayAverageLoad", method, path, queryParams)
 	if response != nil {
 		ret.Response = response.RawResponse
 		ret.Payload = response.Body()
@@ -102,10 +99,7 @@ func (a StatisticsApi) GetGatewayResourceUsage() (*pdu.ResourceUsage, *v1.APIRes
 	pdu := new(pdu.ResourceUsage)
 	response, err := a.Configuration.APIClient.CallAPI(path, method, nil, headers, queryParams)
 
-	u, _ := url.Parse(path)
-	u.RawQuery = queryParams.Encode()
-
-	ret := &v1.APIResponse{Operation: "GetGatewayResourceUsage", Method: method, RequestURL: u.String()}
+	ret := v1.NewAPIResponse("GetGatewayResourceUsage", method, path, queryParams)
 	if response != nil {
 		ret.Response = response.RawResponse
 		ret.Payload = response.Body()
@@ -145,10 +139,7 @@ func (a StatisticsApi) GetGatewayUpTime() (*pdu.UpTime, *v1.APIResponse, error) 
 	pdu := new(pdu.UpTime)
 	response, err := a.Configuration.APIClient.CallAPI(path, method, nil, headers, queryParams)
 
-	u, _ := url.Parse(path)
-	u.RawQuery = queryParams.Encode()
-
-	ret := &v1.APIResponse{Operation: "GetGatewayUpTime", Method: method, RequestURL: u.String()}
+	ret := v1.NewAPIResponse("GetGatewayUpTime", method, path, queryParams)
 	if response != nil {
 		ret.Response = response.RawResponse
 		ret.Payload = response.Body()
@@ -190,10 +181,7 @@ func (a StatisticsApi) GetPipelineIndicatorNames(pipelineName string) (
 	pdu := new(pdu.PipelineIndicatorNames)
 	response, err := a.Configuration.APIClient.CallAPI(path, method, nil, headers, queryParams)
 
-	u, _ := url.Parse(path)
-	u.RawQuery = queryParams.Encode()
-
-	ret := &v1.APIResponse{Operation: "GetPipelineIndicatorNames", Method: method, RequestURL: u.String()}
+	ret := v1.NewAPIResponse("GetPipelineIndicatorNames", method, path, queryParams)
 	if response != nil {
 		ret.Response = response.RawResponse
 		ret.Payload = response.Body()
@@ -235,10 +223,7 @@ func (a StatisticsApi) GetPipelineIndicatorDesc(pipelineName string, indicatorNa
 	pdu := new(pdu.PipelineIndicatorDescription)
 	response, err := a.Configuration.APIClient.CallAPI(path, method, nil, headers, queryParams)
 
-	u, _ := url.Parse(path)
-	u.RawQuery = queryParams.Encode()
-
-	ret := &v1.APIResponse{Operation: "GetPipelineIndicatorDesc", Method: method, RequestURL: u.String()}
+	ret := v1.NewAPIResponse("GetPipelineIndicatorDesc", method, path, queryParams)
 	if response != nil {
 		ret.Response = response.RawResponse
 		ret.Payload = response.Body()
@@ -279,10 +264,7 @@ func (a StatisticsApi) GetPipelineIndicatorValue(pipelineName string, indicatorN
 	pdu := new(pdu.PipelineIndicatorValue)
 	response, err := a.Configuration.APIClient.CallAPI(path, method, nil, headers, queryParams)
 
-	u, _ := url.Parse(path)
-	u.RawQuery = queryParams.Encode()
-
-	ret := &v1.APIResponse{Operation: "GetPipelineIndicatorValue", Method: method, RequestURL: u.String()}
+	ret := v1.NewAPIResponse("GetPipelineIndicatorValue", method, path, queryParams)
 	if response != nil {
 		ret.Response = response.RawResponse
 		ret.Payload = response.Body()
@@ -324,10 +306,7 @@ func (a StatisticsApi) GetPluginIndicatorNames(pipelineName string, pluginName s
 	pdu := new(pdu.PluginIndicatorNames)
 	response, err := a.Configuration.APIClient.CallAPI(path, method, nil, headers, queryParams)
 
-	u, _ := url.Parse(path)
-	u.RawQuery = queryParams.Encode()
-
-	ret := &v1.APIResponse{Operation: "GetPluginIndicatorNames", Method: method, RequestURL: u.String()}
+	ret := v1.NewAPIResponse("GetPluginIndicatorNames", method, path, queryParams)
 	if response != nil {
 		ret.Response = response.RawResponse
 		ret.Payload = response.Body()
@@ -371,10 +350,7 @@ func (a StatisticsApi) GetPluginIndicatorDesc(pipelineName string, pluginName st
 	pdu := new(pdu.PluginIndicatorDescription)
 	response, err := a.Configuration.APIClient.CallAPI(path, method, nil, headers, queryParams)
 
-	u, _ := url.Parse(path)
-	u.RawQuery = queryParams.Encode()
-
-	ret := &v1.APIResponse{Operation: "GetPluginIndicatorDesc", Method: method, RequestURL: u.String()}
+	ret := v1.NewAPIResponse("GetPluginIndicatorDesc", method, path, queryParams)
 	if response != nil {
 		ret.Response = response.RawResponse
 		ret.Payload = response.Body()
@@ -417,10 +393,7 @@ func (a StatisticsApi) GetPluginIndicatorValue(pipelineName string, pluginName s
 	pdu := new(pdu.PluginIndicatorValue)
 	response, err := a.Configuration.APIClient.CallAPI(path, method, nil, headers, queryParams)
 
-	u, _ := url.Parse(path)
-	u.RawQuery = queryParams.Encode()
-
-	ret := &v1.APIResponse{Operation: "GetPluginIndicatorValue", Method: method, RequestURL: u.String()}
+	ret := v1.NewAPIResponse("GetPluginIndicatorValue", method, path, queryParams)
 	if response != nil {
 		ret.Response = response.RawResponse
 		ret.Payload = response.Body()
@@ -462,10 +435,7 @@ func (a StatisticsApi) GetTaskIndicatorNames(pipelineName string) (*pdu.TaskIndi
 	pdu := new(pdu.TaskIndicatorNames)
 	response, err := a.Configuration.APIClient.CallAPI(path, method, nil, headers, queryParams)
 
-	u, _ := url.Parse(path)
-	u.RawQuery = queryParams.Encode()
-
-	ret := &v1.APIResponse{Operation: "GetTaskIndicatorNames", Method: method, RequestURL: u.String()}
+	ret := v1.NewAPIResponse("GetTaskIndicatorNames", method, path, queryParams)
 	if response != nil {
 		ret.Response = response.RawResponse
 		ret.Payload = response.Body()
@@ -508,10 +478,7 @@ func (a StatisticsApi) GetTaskIndicatorDesc(pipelineName string, indicatorName s
 	pdu := new(pdu.TaskIndicatorDescription)
 	response, err := a.Configuration.APIClient.CallAPI(path, method, nil, headers, queryParams)
 
-	u, _ := url.Parse(path)
-	u.RawQuery = queryParams.Encode()
-
-	ret := &v1.APIResponse{Operation: "GetTaskIndicatorDesc", Method: method, RequestURL: u.String()}
+	ret := v1.NewAPIResponse("GetTaskIndicatorDesc", method, path, queryParams)
 	if response != nil {
 		ret.Response = response.RawResponse
 		ret.Payload = response.Body()
@@ -554,10 +521,7 @@ func (a StatisticsApi) GetTaskIndicatorValue(pipelineName string, indicatorName 
 	pdu := new(pdu.TaskIndicatorValue)
 	response, err := a.Configuration.APIClient.CallAPI(path, method, nil, headers, queryParams)
 
-	u, _ := url.Parse(path)
-	u.RawQuery = queryParams.Encode()
-
-	ret := &v1.APIResponse{Operation: "GetTaskIndicatorValue", Method: method, RequestURL: u.String()}
+	ret := v1.NewAPIResponse("GetTaskIndicatorValue", method, path, queryParams)
 	if response != nil {
 		ret.Response = response.RawResponse
 		ret.Payload = response.Body()

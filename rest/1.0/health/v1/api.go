@@ -55,9 +55,7 @@ func (a HealthApi) Check() (*v1.APIResponse, error) {
 	}
 	response, err := a.Configuration.APIClient.CallAPI(path, method, nil, headers, queryParams)
 
-	u, _ := url.Parse(path)
-	u.RawQuery = queryParams.Encode()
-	ret := &v1.APIResponse{Operation: "Check", Method: method, RequestURL: u.String()}
+	ret := v1.NewAPIResponse("Check", method, path, queryParams)
 	if response != nil {
 		ret.Response = response.RawResponse
 		ret.Payload = response.Body()

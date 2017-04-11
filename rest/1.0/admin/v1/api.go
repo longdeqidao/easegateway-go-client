@@ -59,10 +59,7 @@ func (a AdminApi) GetPipelineTypes() (*pdu.PipelineTypesRetrieveResponse, *v1.AP
 	pdu := new(pdu.PipelineTypesRetrieveResponse)
 	response, err := a.Configuration.APIClient.CallAPI(path, method, nil, headers, queryParams)
 
-	u, _ := url.Parse(path)
-	u.RawQuery = queryParams.Encode()
-
-	ret := &v1.APIResponse{Operation: "GetPipelineTypes", Method: method, RequestURL: u.String()}
+	ret := v1.NewAPIResponse("GetPipelineTypes", method, path, queryParams)
 	if response != nil {
 		ret.Response = response.RawResponse
 		ret.Payload = response.Body()
@@ -71,13 +68,11 @@ func (a AdminApi) GetPipelineTypes() (*pdu.PipelineTypesRetrieveResponse, *v1.AP
 	if err != nil {
 		return pdu, ret, err
 	}
-
-	err = json.Unmarshal(response.Body(), &pdu)
 	return pdu, ret, err
 }
 
 func (a AdminApi) GetPipelines(pipelinesRetrieveRequest *pdu.PipelinesRetrieveRequest) (
-*pdu.PipelinesRetrieveResponse, *v1.APIResponse, error) {
+	*pdu.PipelinesRetrieveResponse, *v1.APIResponse, error) {
 
 	method := strings.ToUpper("Get")
 	path := a.Configuration.BasePath + "/pipelines"
@@ -104,9 +99,7 @@ func (a AdminApi) GetPipelines(pipelinesRetrieveRequest *pdu.PipelinesRetrieveRe
 	pdu := new(pdu.PipelinesRetrieveResponse)
 	response, err := a.Configuration.APIClient.CallAPI(path, method, pipelinesRetrieveRequest, headers, queryParams)
 
-	u, _ := url.Parse(path)
-	u.RawQuery = queryParams.Encode()
-	ret := &v1.APIResponse{Operation: "GetPipelines", Method: method, RequestURL: u.String()}
+	ret := v1.NewAPIResponse("GetPipelines", method, path, queryParams)
 	if response != nil {
 		ret.Response = response.RawResponse
 		ret.Payload = response.Body()
@@ -144,9 +137,7 @@ func (a AdminApi) DeletePipelineByName(pipelineName string) (*v1.APIResponse, er
 
 	response, err := a.Configuration.APIClient.CallAPI(path, method, nil, headers, queryParams)
 
-	u, _ := url.Parse(path)
-	u.RawQuery = queryParams.Encode()
-	ret := &v1.APIResponse{Operation: "DeletePipelineByName", Method: method, RequestURL: u.String()}
+	ret := v1.NewAPIResponse("DeletePipelineByName", method, path, queryParams)
 	if response != nil {
 		ret.Response = response.RawResponse
 		ret.Payload = response.Body()
@@ -184,9 +175,7 @@ func (a AdminApi) GetPipelineByName(pipelineName string) (*pdu.PipelineSpec, *v1
 	pdu := new(pdu.PipelineSpec)
 	response, err := a.Configuration.APIClient.CallAPI(path, method, nil, headers, queryParams)
 
-	u, _ := url.Parse(path)
-	u.RawQuery = queryParams.Encode()
-	ret := &v1.APIResponse{Operation: "GetPipelineByName", Method: method, RequestURL: u.String()}
+	ret := v1.NewAPIResponse("GetPipelineByName", method, path, queryParams)
 	if response != nil {
 		ret.Response = response.RawResponse
 		ret.Payload = response.Body()
@@ -224,9 +213,7 @@ func (a AdminApi) CreatePipeline(pipelineCreationRequest *pdu.PipelineCreationRe
 
 	response, err := a.Configuration.APIClient.CallAPI(path, method, pipelineCreationRequest, headers, queryParams)
 
-	u, _ := url.Parse(path)
-	u.RawQuery = queryParams.Encode()
-	ret := &v1.APIResponse{Operation: "CreatePipeline", Method: method, RequestURL: u.String()}
+	ret := v1.NewAPIResponse("CreatePipeline", method, path, queryParams)
 	if response != nil {
 		ret.Response = response.RawResponse
 		ret.Payload = response.Body()
@@ -263,9 +250,7 @@ func (a AdminApi) UpdatePipeline(pipelineUpdateRequest *pdu.PipelineUpdateReques
 
 	response, err := a.Configuration.APIClient.CallAPI(path, method, pipelineUpdateRequest, headers, queryParams)
 
-	u, _ := url.Parse(path)
-	u.RawQuery = queryParams.Encode()
-	var ret = &v1.APIResponse{Operation: "UpdatePipeline", Method: method, RequestURL: u.String()}
+	ret := v1.NewAPIResponse("UpdatePipeline", method, path, queryParams)
 	if response != nil {
 		ret.Response = response.RawResponse
 		ret.Payload = response.Body()
@@ -303,9 +288,7 @@ func (a AdminApi) GetPluginTypes() (*pdu.PluginTypesRetrieveResponse, *v1.APIRes
 	pdu := new(pdu.PluginTypesRetrieveResponse)
 	response, err := a.Configuration.APIClient.CallAPI(path, method, nil, headers, queryParams)
 
-	u, _ := url.Parse(path)
-	u.RawQuery = queryParams.Encode()
-	ret := &v1.APIResponse{Operation: "GetPluginTypes", Method: method, RequestURL: u.String()}
+	ret := v1.NewAPIResponse("GetPluginTypes", method, path, queryParams)
 	if response != nil {
 		ret.Response = response.RawResponse
 		ret.Payload = response.Body()
@@ -347,9 +330,7 @@ func (a AdminApi) GetPlugins(pluginsRetrieveRequest *pdu.PluginsRetrieveRequest)
 	pdu := new(pdu.PluginsRetrieveResponse)
 	response, err := a.Configuration.APIClient.CallAPI(path, method, pluginsRetrieveRequest, headers, queryParams)
 
-	u, _ := url.Parse(path)
-	u.RawQuery = queryParams.Encode()
-	ret := &v1.APIResponse{Operation: "GetPlugins", Method: method, RequestURL: u.String()}
+	ret := v1.NewAPIResponse("GetPlugins", method, path, queryParams)
 	if response != nil {
 		ret.Response = response.RawResponse
 		ret.Payload = response.Body()
@@ -388,9 +369,7 @@ func (a AdminApi) DeletePluginByName(pluginName string) (*v1.APIResponse, error)
 
 	response, err := a.Configuration.APIClient.CallAPI(path, method, nil, headers, queryParams)
 
-	u, _ := url.Parse(path)
-	u.RawQuery = queryParams.Encode()
-	ret := &v1.APIResponse{Operation: "DeletePluginByName", Method: method, RequestURL: u.String()}
+	ret := v1.NewAPIResponse("DeletePluginByName", method, path, queryParams)
 	if response != nil {
 		ret.Response = response.RawResponse
 		ret.Payload = response.Body()
@@ -428,9 +407,7 @@ func (a AdminApi) GetPluginByName(pluginName string) (*pdu.PluginSpec, *v1.APIRe
 	pdu := new(pdu.PluginSpec)
 	response, err := a.Configuration.APIClient.CallAPI(path, method, nil, headers, queryParams)
 
-	u, _ := url.Parse(path)
-	u.RawQuery = queryParams.Encode()
-	ret := &v1.APIResponse{Operation: "GetPluginByName", Method: method, RequestURL: u.String()}
+	ret := v1.NewAPIResponse("GetPluginByName", method, path, queryParams)
 	if response != nil {
 		ret.Response = response.RawResponse
 		ret.Payload = response.Body()
@@ -468,9 +445,7 @@ func (a AdminApi) CreatePlugin(pluginCreationRequest *pdu.PluginCreationRequest)
 
 	response, err := a.Configuration.APIClient.CallAPI(path, method, pluginCreationRequest, headers, queryParams)
 
-	u, _ := url.Parse(path)
-	u.RawQuery = queryParams.Encode()
-	ret := &v1.APIResponse{Operation: "CreatePlugin", Method: method, RequestURL: u.String()}
+	ret := v1.NewAPIResponse("CreatePlugin", method, path, queryParams)
 	if response != nil {
 		ret.Response = response.RawResponse
 		ret.Payload = response.Body()
@@ -507,9 +482,7 @@ func (a AdminApi) UpdatePlugin(pluginUpdateRequest *pdu.PluginUpdateRequest) (*v
 
 	response, err := a.Configuration.APIClient.CallAPI(path, method, pluginUpdateRequest, headers, queryParams)
 
-	u, _ := url.Parse(path)
-	u.RawQuery = queryParams.Encode()
-	ret := &v1.APIResponse{Operation: "UpdatePlugin", Method: method, RequestURL: u.String()}
+	ret := v1.NewAPIResponse("UpdatePlugin", method, path, queryParams)
 	if response != nil {
 		ret.Response = response.RawResponse
 		ret.Payload = response.Body()
