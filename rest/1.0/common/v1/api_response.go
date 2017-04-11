@@ -9,7 +9,7 @@ import (
 
 type APIResponse struct {
 	*http.Response `json:"-"`
-	Error          pdu.Error `json:"message,omitempty"`
+	Error          *pdu.Error `json:"message,omitempty"`
 	Operation      string    `json:"operation,omitempty"`
 	RequestURL     *url.URL  `json:"url,omitempty"`
 	Method         string    `json:"method,omitempty"`
@@ -23,7 +23,7 @@ func NewAPIResponse(operation, method, path string, queryParams url.Values) *API
 	return response
 }
 
-func NewAPIResponseWithError(err pdu.Error) *APIResponse {
-	response := &APIResponse{Error: err}
+func NewAPIResponseWithError(message string) *APIResponse {
+	response := &APIResponse{Error: &pdu.Error{Error: message}}
 	return response
 }

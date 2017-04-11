@@ -73,8 +73,8 @@ func (a AdminApi) GetPipelineTypes() (*pdu.PipelineTypesRetrieveResponse, *v1.AP
 	if response.StatusCode() == 200 {
 		err = json.Unmarshal(response.Body(), pdu)
 	} else if len(response.Body()) > 0 {
-		e := common_pdu.Error{}
-		err = json.Unmarshal(response.Body(), &e)
+		e := new(common_pdu.Error)
+		err = json.Unmarshal(response.Body(), e)
 		if err == nil {
 			ret.Error = e
 		}
@@ -124,8 +124,8 @@ func (a AdminApi) GetPipelines(pipelinesRetrieveRequest *pdu.PipelinesRetrieveRe
 	if response.StatusCode() == 200 {
 		err = json.Unmarshal(response.Body(), pdu)
 	} else if len(response.Body()) > 0 {
-		e := common_pdu.Error{}
-		err = json.Unmarshal(response.Body(), &e)
+		e := new(common_pdu.Error)
+		err = json.Unmarshal(response.Body(), e)
 		if err == nil {
 			ret.Error = e
 		}
@@ -210,8 +210,8 @@ func (a AdminApi) GetPipelineByName(pipelineName string) (*pdu.PipelineSpec, *v1
 	if response.StatusCode() == 200 {
 		err = json.Unmarshal(response.Body(), pdu)
 	} else if len(response.Body()) > 0 {
-		e := common_pdu.Error{}
-		err = json.Unmarshal(response.Body(), &e)
+		e := new(common_pdu.Error)
+		err = json.Unmarshal(response.Body(), e)
 		if err == nil {
 			ret.Error = e
 		}
@@ -333,8 +333,8 @@ func (a AdminApi) GetPluginTypes() (*pdu.PluginTypesRetrieveResponse, *v1.APIRes
 	if response.StatusCode() == 200 {
 		err = json.Unmarshal(response.Body(), pdu)
 	} else if len(response.Body()) > 0 {
-		e := common_pdu.Error{}
-		err = json.Unmarshal(response.Body(), &e)
+		e := new(common_pdu.Error)
+		err = json.Unmarshal(response.Body(), e)
 		if err == nil {
 			ret.Error = e
 		}
@@ -385,8 +385,8 @@ func (a AdminApi) GetPlugins(pluginsRetrieveRequest *pdu.PluginsRetrieveRequest)
 	if response.StatusCode() == 200 {
 		err = json.Unmarshal(response.Body(), pdu)
 	} else if len(response.Body()) > 0 {
-		e := common_pdu.Error{}
-		err = json.Unmarshal(response.Body(), &e)
+		e := new(common_pdu.Error)
+		err = json.Unmarshal(response.Body(), e)
 		if err == nil {
 			ret.Error = e
 		}
@@ -472,8 +472,8 @@ func (a AdminApi) GetPluginByName(pluginName string) (*pdu.PluginSpec, *v1.APIRe
 	if response.StatusCode() == 200 {
 		err = json.Unmarshal(response.Body(), pdu)
 	} else if len(response.Body()) > 0 {
-		e := common_pdu.Error{}
-		err = json.Unmarshal(response.Body(), &e)
+		e := new(common_pdu.Error)
+		err = json.Unmarshal(response.Body(), e)
 		if err == nil {
 			ret.Error = e
 		}

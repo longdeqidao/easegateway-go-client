@@ -73,8 +73,8 @@ func (a StatisticsApi) GetGatewayAverageLoad() (*pdu.AvgLoad, *v1.APIResponse, e
 	if response.StatusCode() == 200 {
 		err = json.Unmarshal(response.Body(), pdu)
 	} else if len(response.Body()) > 0 {
-		e := common_pdu.Error{}
-		err = json.Unmarshal(response.Body(), &e)
+		e := new(common_pdu.Error)
+		err = json.Unmarshal(response.Body(), e)
 		if err == nil {
 			ret.Error = e
 		}
@@ -122,8 +122,8 @@ func (a StatisticsApi) GetGatewayResourceUsage() (*pdu.ResourceUsage, *v1.APIRes
 	if response.StatusCode() == 200 {
 		err = json.Unmarshal(response.Body(), pdu)
 	} else if len(response.Body()) > 0 {
-		e := common_pdu.Error{}
-		err = json.Unmarshal(response.Body(), &e)
+		e := new(common_pdu.Error)
+		err = json.Unmarshal(response.Body(), e)
 		if err == nil {
 			ret.Error = e
 		}
@@ -171,8 +171,8 @@ func (a StatisticsApi) GetGatewayUpTime() (*pdu.UpTime, *v1.APIResponse, error) 
 	if response.StatusCode() == 200 {
 		err = json.Unmarshal(response.Body(), pdu)
 	} else if len(response.Body()) > 0 {
-		e := common_pdu.Error{}
-		err = json.Unmarshal(response.Body(), &e)
+		e := new(common_pdu.Error)
+		err = json.Unmarshal(response.Body(), e)
 		if err == nil {
 			ret.Error = e
 		}
@@ -222,8 +222,8 @@ func (a StatisticsApi) GetPipelineIndicatorNames(pipelineName string) (
 	if response.StatusCode() == 200 {
 		err = json.Unmarshal(response.Body(), pdu)
 	} else if len(response.Body()) > 0 {
-		e := common_pdu.Error{}
-		err = json.Unmarshal(response.Body(), &e)
+		e := new(common_pdu.Error)
+		err = json.Unmarshal(response.Body(), e)
 		if err == nil {
 			ret.Error = e
 		}
@@ -273,8 +273,8 @@ func (a StatisticsApi) GetPipelineIndicatorDesc(pipelineName string, indicatorNa
 	if response.StatusCode() == 200 {
 		err = json.Unmarshal(response.Body(), pdu)
 	} else if len(response.Body()) > 0 {
-		e := common_pdu.Error{}
-		err = json.Unmarshal(response.Body(), &e)
+		e := new(common_pdu.Error)
+		err = json.Unmarshal(response.Body(), e)
 		if err == nil {
 			ret.Error = e
 		}
@@ -324,8 +324,8 @@ func (a StatisticsApi) GetPipelineIndicatorValue(pipelineName string, indicatorN
 	if response.StatusCode() == 200 {
 		err = json.Unmarshal(response.Body(), pdu)
 	} else if len(response.Body()) > 0 {
-		e := common_pdu.Error{}
-		err = json.Unmarshal(response.Body(), &e)
+		e := new(common_pdu.Error)
+		err = json.Unmarshal(response.Body(), e)
 		if err == nil {
 			ret.Error = e
 		}
@@ -375,8 +375,8 @@ func (a StatisticsApi) GetPluginIndicatorNames(pipelineName string, pluginName s
 	if response.StatusCode() == 200 {
 		err = json.Unmarshal(response.Body(), pdu)
 	} else if len(response.Body()) > 0 {
-		e := common_pdu.Error{}
-		err = json.Unmarshal(response.Body(), &e)
+		e := new(common_pdu.Error)
+		err = json.Unmarshal(response.Body(), e)
 		if err == nil {
 			ret.Error = e
 		}
@@ -428,8 +428,8 @@ func (a StatisticsApi) GetPluginIndicatorDesc(pipelineName string, pluginName st
 	if response.StatusCode() == 200 {
 		err = json.Unmarshal(response.Body(), pdu)
 	} else if len(response.Body()) > 0 {
-		e := common_pdu.Error{}
-		err = json.Unmarshal(response.Body(), &e)
+		e := new(common_pdu.Error)
+		err = json.Unmarshal(response.Body(), e)
 		if err == nil {
 			ret.Error = e
 		}
@@ -480,8 +480,8 @@ func (a StatisticsApi) GetPluginIndicatorValue(pipelineName string, pluginName s
 	if response.StatusCode() == 200 {
 		err = json.Unmarshal(response.Body(), pdu)
 	} else if len(response.Body()) > 0 {
-		e := common_pdu.Error{}
-		err = json.Unmarshal(response.Body(), &e)
+		e := new(common_pdu.Error)
+		err = json.Unmarshal(response.Body(), e)
 		if err == nil {
 			ret.Error = e
 		}
@@ -531,8 +531,8 @@ func (a StatisticsApi) GetTaskIndicatorNames(pipelineName string) (*pdu.TaskIndi
 	if response.StatusCode() == 200 {
 		err = json.Unmarshal(response.Body(), pdu)
 	} else if len(response.Body()) > 0 {
-		e := common_pdu.Error{}
-		err = json.Unmarshal(response.Body(), &e)
+		e := new(common_pdu.Error)
+		err = json.Unmarshal(response.Body(), e)
 		if err == nil {
 			ret.Error = e
 		}
@@ -583,8 +583,8 @@ func (a StatisticsApi) GetTaskIndicatorDesc(pipelineName string, indicatorName s
 	if response.StatusCode() == 200 {
 		err = json.Unmarshal(response.Body(), pdu)
 	} else if len(response.Body()) > 0 {
-		e := common_pdu.Error{}
-		err = json.Unmarshal(response.Body(), &e)
+		e := new(common_pdu.Error)
+		err = json.Unmarshal(response.Body(), e)
 		if err == nil {
 			ret.Error = e
 		}
@@ -635,8 +635,8 @@ func (a StatisticsApi) GetTaskIndicatorValue(pipelineName string, indicatorName 
 	if response.StatusCode() == 200 {
 		err = json.Unmarshal(response.Body(), pdu)
 	} else if len(response.Body()) > 0 {
-		e := common_pdu.Error{}
-		err = json.Unmarshal(response.Body(), &e)
+		e := new(common_pdu.Error)
+		err = json.Unmarshal(response.Body(), e)
 		if err == nil {
 			ret.Error = e
 		}
