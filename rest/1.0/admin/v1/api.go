@@ -21,7 +21,7 @@ func NewAdminApi(address string) *AdminApi {
 		address = "localhost:9090"
 	}
 
-	configuration := v1.NewConfiguration(fmt.Sprintf("http://%s/admin//v1", address))
+	configuration := v1.NewConfiguration(fmt.Sprintf("http://%s/admin/v1", address))
 	return &AdminApi{
 		Configuration: configuration,
 	}
