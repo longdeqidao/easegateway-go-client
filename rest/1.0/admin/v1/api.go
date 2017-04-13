@@ -168,6 +168,15 @@ func (a AdminApi) DeletePipelineByName(pipelineName string) (*v1.APIResponse, er
 	if err != nil {
 		return ret, err
 	}
+
+	if response.StatusCode() != 200 {
+		e := new(common_pdu.Error)
+		err = json.Unmarshal(response.Body(), e)
+		if err == nil {
+			ret.Error = e
+		}
+	}
+
 	return ret, err
 }
 
@@ -254,6 +263,15 @@ func (a AdminApi) CreatePipeline(pipelineCreationRequest *pdu.PipelineCreationRe
 	if err != nil {
 		return ret, err
 	}
+
+	if response.StatusCode() != 200 {
+		e := new(common_pdu.Error)
+		err = json.Unmarshal(response.Body(), e)
+		if err == nil {
+			ret.Error = e
+		}
+	}
+
 	return ret, err
 }
 
@@ -291,6 +309,15 @@ func (a AdminApi) UpdatePipeline(pipelineUpdateRequest *pdu.PipelineUpdateReques
 	if err != nil {
 		return ret, err
 	}
+
+	if response.StatusCode() != 200 {
+		e := new(common_pdu.Error)
+		err = json.Unmarshal(response.Body(), e)
+		if err == nil {
+			ret.Error = e
+		}
+	}
+
 	return ret, err
 }
 
@@ -430,6 +457,15 @@ func (a AdminApi) DeletePluginByName(pluginName string) (*v1.APIResponse, error)
 	if err != nil {
 		return ret, err
 	}
+
+	if response.StatusCode() != 200 {
+		e := new(common_pdu.Error)
+		err = json.Unmarshal(response.Body(), e)
+		if err == nil {
+			ret.Error = e
+		}
+	}
+
 	return ret, err
 }
 
@@ -516,6 +552,15 @@ func (a AdminApi) CreatePlugin(pluginCreationRequest *pdu.PluginCreationRequest)
 	if err != nil {
 		return ret, err
 	}
+
+	if response.StatusCode() != 200 {
+		e := new(common_pdu.Error)
+		err = json.Unmarshal(response.Body(), e)
+		if err == nil {
+			ret.Error = e
+		}
+	}
+
 	return ret, err
 }
 
@@ -553,5 +598,14 @@ func (a AdminApi) UpdatePlugin(pluginUpdateRequest *pdu.PluginUpdateRequest) (*v
 	if err != nil {
 		return ret, err
 	}
+
+	if response.StatusCode() != 200 {
+		e := new(common_pdu.Error)
+		err = json.Unmarshal(response.Body(), e)
+		if err == nil {
+			ret.Error = e
+		}
+	}
+
 	return ret, err
 }

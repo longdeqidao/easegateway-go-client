@@ -10,10 +10,10 @@ import (
 type APIResponse struct {
 	*http.Response `json:"-"`
 	Error          *pdu.Error `json:"message,omitempty"`
-	Operation      string    `json:"operation,omitempty"`
-	RequestURL     *url.URL  `json:"url,omitempty"`
-	Method         string    `json:"method,omitempty"`
-	Payload        []byte    `json:"-"`
+	Operation      string     `json:"operation,omitempty"`
+	RequestURL     *url.URL   `json:"url,omitempty"`
+	Method         string     `json:"method,omitempty"`
+	Payload        []byte     `json:"-"`
 }
 
 func NewAPIResponse(operation, method, path string, queryParams url.Values) *APIResponse {

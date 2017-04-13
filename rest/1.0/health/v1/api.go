@@ -1,11 +1,13 @@
 package v1
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/url"
 	"strings"
 
 	"github.com/hexdecteam/easegateway-go-client/rest/1.0/common/v1"
+	common_pdu "github.com/hexdecteam/easegateway-go-client/rest/1.0/common/v1/pdu"
 )
 
 type HealthApi struct {
@@ -64,5 +66,14 @@ func (a HealthApi) Check() (*v1.APIResponse, error) {
 	if err != nil {
 		return ret, err
 	}
+
+	if response.StatusCode() != 200 {
+		e := new(common_pdu.Error)
+		err = json.Unmarshal(response.Body(), e)
+		if err == nil {
+			ret.Error = e
+		}
+	}
+
 	return ret, err
 }
