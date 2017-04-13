@@ -3,6 +3,7 @@ package v1
 import (
 	"encoding/json"
 	"fmt"
+	"net/http"
 	"net/url"
 	"strings"
 
@@ -70,7 +71,7 @@ func (a AdminApi) GetPipelineTypes() (*pdu.PipelineTypesRetrieveResponse, *v1.AP
 		return pdu, ret, err
 	}
 
-	if response.StatusCode() == 200 {
+	if response.StatusCode() == http.StatusOK {
 		err = json.Unmarshal(response.Body(), pdu)
 	} else if len(response.Body()) > 0 {
 		e := new(common_pdu.Error)
@@ -121,7 +122,7 @@ func (a AdminApi) GetPipelines(pipelinesRetrieveRequest *pdu.PipelinesRetrieveRe
 		return pdu, ret, err
 	}
 
-	if response.StatusCode() == 200 {
+	if response.StatusCode() == http.StatusOK {
 		err = json.Unmarshal(response.Body(), pdu)
 	} else if len(response.Body()) > 0 {
 		e := new(common_pdu.Error)
@@ -169,7 +170,7 @@ func (a AdminApi) DeletePipelineByName(pipelineName string) (*v1.APIResponse, er
 		return ret, err
 	}
 
-	if response.StatusCode() != 200 {
+	if response.StatusCode() != http.StatusOK {
 		e := new(common_pdu.Error)
 		err = json.Unmarshal(response.Body(), e)
 		if err == nil {
@@ -216,7 +217,7 @@ func (a AdminApi) GetPipelineByName(pipelineName string) (*pdu.PipelineSpec, *v1
 		return pdu, ret, err
 	}
 
-	if response.StatusCode() == 200 {
+	if response.StatusCode() == http.StatusOK {
 		err = json.Unmarshal(response.Body(), pdu)
 	} else if len(response.Body()) > 0 {
 		e := new(common_pdu.Error)
@@ -264,7 +265,7 @@ func (a AdminApi) CreatePipeline(pipelineCreationRequest *pdu.PipelineCreationRe
 		return ret, err
 	}
 
-	if response.StatusCode() != 200 {
+	if response.StatusCode() != http.StatusOK {
 		e := new(common_pdu.Error)
 		err = json.Unmarshal(response.Body(), e)
 		if err == nil {
@@ -310,7 +311,7 @@ func (a AdminApi) UpdatePipeline(pipelineUpdateRequest *pdu.PipelineUpdateReques
 		return ret, err
 	}
 
-	if response.StatusCode() != 200 {
+	if response.StatusCode() != http.StatusOK {
 		e := new(common_pdu.Error)
 		err = json.Unmarshal(response.Body(), e)
 		if err == nil {
@@ -357,7 +358,7 @@ func (a AdminApi) GetPluginTypes() (*pdu.PluginTypesRetrieveResponse, *v1.APIRes
 		return pdu, ret, err
 	}
 
-	if response.StatusCode() == 200 {
+	if response.StatusCode() == http.StatusOK {
 		err = json.Unmarshal(response.Body(), pdu)
 	} else if len(response.Body()) > 0 {
 		e := new(common_pdu.Error)
@@ -409,7 +410,7 @@ func (a AdminApi) GetPlugins(pluginsRetrieveRequest *pdu.PluginsRetrieveRequest)
 		return pdu, ret, err
 	}
 
-	if response.StatusCode() == 200 {
+	if response.StatusCode() == http.StatusOK {
 		err = json.Unmarshal(response.Body(), pdu)
 	} else if len(response.Body()) > 0 {
 		e := new(common_pdu.Error)
@@ -458,7 +459,7 @@ func (a AdminApi) DeletePluginByName(pluginName string) (*v1.APIResponse, error)
 		return ret, err
 	}
 
-	if response.StatusCode() != 200 {
+	if response.StatusCode() != http.StatusOK {
 		e := new(common_pdu.Error)
 		err = json.Unmarshal(response.Body(), e)
 		if err == nil {
@@ -505,7 +506,7 @@ func (a AdminApi) GetPluginByName(pluginName string) (*pdu.PluginSpec, *v1.APIRe
 		return pdu, ret, err
 	}
 
-	if response.StatusCode() == 200 {
+	if response.StatusCode() == http.StatusOK {
 		err = json.Unmarshal(response.Body(), pdu)
 	} else if len(response.Body()) > 0 {
 		e := new(common_pdu.Error)
@@ -553,7 +554,7 @@ func (a AdminApi) CreatePlugin(pluginCreationRequest *pdu.PluginCreationRequest)
 		return ret, err
 	}
 
-	if response.StatusCode() != 200 {
+	if response.StatusCode() != http.StatusOK {
 		e := new(common_pdu.Error)
 		err = json.Unmarshal(response.Body(), e)
 		if err == nil {
@@ -599,7 +600,7 @@ func (a AdminApi) UpdatePlugin(pluginUpdateRequest *pdu.PluginUpdateRequest) (*v
 		return ret, err
 	}
 
-	if response.StatusCode() != 200 {
+	if response.StatusCode() != http.StatusOK {
 		e := new(common_pdu.Error)
 		err = json.Unmarshal(response.Body(), e)
 		if err == nil {

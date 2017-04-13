@@ -3,6 +3,7 @@ package v1
 import (
 	"encoding/json"
 	"fmt"
+	"net/http"
 	"net/url"
 	"strings"
 
@@ -67,7 +68,7 @@ func (a HealthApi) Check() (*v1.APIResponse, error) {
 		return ret, err
 	}
 
-	if response.StatusCode() != 200 {
+	if response.StatusCode() != http.StatusOK {
 		e := new(common_pdu.Error)
 		err = json.Unmarshal(response.Body(), e)
 		if err == nil {

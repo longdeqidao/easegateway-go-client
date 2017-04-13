@@ -3,6 +3,7 @@ package v1
 import (
 	"encoding/json"
 	"fmt"
+	"net/http"
 	"net/url"
 	"strings"
 
@@ -70,7 +71,7 @@ func (a StatisticsApi) GetGatewayAverageLoad() (*pdu.AvgLoad, *v1.APIResponse, e
 		return pdu, ret, err
 	}
 
-	if response.StatusCode() == 200 {
+	if response.StatusCode() == http.StatusOK {
 		err = json.Unmarshal(response.Body(), pdu)
 	} else if len(response.Body()) > 0 {
 		e := new(common_pdu.Error)
@@ -119,7 +120,7 @@ func (a StatisticsApi) GetGatewayResourceUsage() (*pdu.ResourceUsage, *v1.APIRes
 		return pdu, ret, err
 	}
 
-	if response.StatusCode() == 200 {
+	if response.StatusCode() == http.StatusOK {
 		err = json.Unmarshal(response.Body(), pdu)
 	} else if len(response.Body()) > 0 {
 		e := new(common_pdu.Error)
@@ -168,7 +169,7 @@ func (a StatisticsApi) GetGatewayUpTime() (*pdu.UpTime, *v1.APIResponse, error) 
 		return pdu, ret, err
 	}
 
-	if response.StatusCode() == 200 {
+	if response.StatusCode() == http.StatusOK {
 		err = json.Unmarshal(response.Body(), pdu)
 	} else if len(response.Body()) > 0 {
 		e := new(common_pdu.Error)
@@ -219,7 +220,7 @@ func (a StatisticsApi) GetPipelineIndicatorNames(pipelineName string) (
 		return pdu, ret, err
 	}
 
-	if response.StatusCode() == 200 {
+	if response.StatusCode() == http.StatusOK {
 		err = json.Unmarshal(response.Body(), pdu)
 	} else if len(response.Body()) > 0 {
 		e := new(common_pdu.Error)
@@ -270,7 +271,7 @@ func (a StatisticsApi) GetPipelineIndicatorDesc(pipelineName string, indicatorNa
 		return pdu, ret, err
 	}
 
-	if response.StatusCode() == 200 {
+	if response.StatusCode() == http.StatusOK {
 		err = json.Unmarshal(response.Body(), pdu)
 	} else if len(response.Body()) > 0 {
 		e := new(common_pdu.Error)
@@ -321,7 +322,7 @@ func (a StatisticsApi) GetPipelineIndicatorValue(pipelineName string, indicatorN
 		return pdu, ret, err
 	}
 
-	if response.StatusCode() == 200 {
+	if response.StatusCode() == http.StatusOK {
 		err = json.Unmarshal(response.Body(), pdu)
 	} else if len(response.Body()) > 0 {
 		e := new(common_pdu.Error)
@@ -372,7 +373,7 @@ func (a StatisticsApi) GetPluginIndicatorNames(pipelineName string, pluginName s
 		return pdu, ret, err
 	}
 
-	if response.StatusCode() == 200 {
+	if response.StatusCode() == http.StatusOK {
 		err = json.Unmarshal(response.Body(), pdu)
 	} else if len(response.Body()) > 0 {
 		e := new(common_pdu.Error)
@@ -425,7 +426,7 @@ func (a StatisticsApi) GetPluginIndicatorDesc(pipelineName string, pluginName st
 		return pdu, ret, err
 	}
 
-	if response.StatusCode() == 200 {
+	if response.StatusCode() == http.StatusOK {
 		err = json.Unmarshal(response.Body(), pdu)
 	} else if len(response.Body()) > 0 {
 		e := new(common_pdu.Error)
@@ -477,7 +478,7 @@ func (a StatisticsApi) GetPluginIndicatorValue(pipelineName string, pluginName s
 		return pdu, ret, err
 	}
 
-	if response.StatusCode() == 200 {
+	if response.StatusCode() == http.StatusOK {
 		err = json.Unmarshal(response.Body(), pdu)
 	} else if len(response.Body()) > 0 {
 		e := new(common_pdu.Error)
@@ -528,7 +529,7 @@ func (a StatisticsApi) GetTaskIndicatorNames(pipelineName string) (*pdu.TaskIndi
 		return pdu, ret, err
 	}
 
-	if response.StatusCode() == 200 {
+	if response.StatusCode() == http.StatusOK {
 		err = json.Unmarshal(response.Body(), pdu)
 	} else if len(response.Body()) > 0 {
 		e := new(common_pdu.Error)
@@ -580,7 +581,7 @@ func (a StatisticsApi) GetTaskIndicatorDesc(pipelineName string, indicatorName s
 		return pdu, ret, err
 	}
 
-	if response.StatusCode() == 200 {
+	if response.StatusCode() == http.StatusOK {
 		err = json.Unmarshal(response.Body(), pdu)
 	} else if len(response.Body()) > 0 {
 		e := new(common_pdu.Error)
@@ -632,7 +633,7 @@ func (a StatisticsApi) GetTaskIndicatorValue(pipelineName string, indicatorName 
 		return pdu, ret, err
 	}
 
-	if response.StatusCode() == 200 {
+	if response.StatusCode() == http.StatusOK {
 		err = json.Unmarshal(response.Body(), pdu)
 	} else if len(response.Body()) > 0 {
 		e := new(common_pdu.Error)
