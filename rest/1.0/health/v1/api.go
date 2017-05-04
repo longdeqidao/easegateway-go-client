@@ -68,7 +68,7 @@ func (a HealthApi) Check() (*v1.APIResponse, error) {
 		return ret, err
 	}
 
-	if response.StatusCode() != http.StatusOK {
+	if response.StatusCode() >= http.StatusBadRequest {
 		e := new(common_pdu.Error)
 		err = json.Unmarshal(response.Body(), e)
 		if err == nil {
