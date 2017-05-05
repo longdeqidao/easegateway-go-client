@@ -73,7 +73,7 @@ func (a AdminApi) GetPipelineTypes() (*pdu.PipelineTypesRetrieveResponse, *v1.AP
 
 	if response.StatusCode() == http.StatusOK {
 		err = json.Unmarshal(response.Body(), pdu)
-	} else if len(response.Body()) > 0 {
+	} else if response.StatusCode() >= http.StatusBadRequest && len(response.Body()) > 0 {
 		e := new(common_pdu.Error)
 		err = json.Unmarshal(response.Body(), e)
 		if err == nil {
@@ -124,7 +124,7 @@ func (a AdminApi) GetPipelines(pipelinesRetrieveRequest *pdu.PipelinesRetrieveRe
 
 	if response.StatusCode() == http.StatusOK {
 		err = json.Unmarshal(response.Body(), pdu)
-	} else if len(response.Body()) > 0 {
+	} else if response.StatusCode() >= http.StatusBadRequest && len(response.Body()) > 0 {
 		e := new(common_pdu.Error)
 		err = json.Unmarshal(response.Body(), e)
 		if err == nil {
@@ -170,7 +170,7 @@ func (a AdminApi) DeletePipelineByName(pipelineName string) (*v1.APIResponse, er
 		return ret, err
 	}
 
-	if response.StatusCode() != http.StatusOK {
+	if response.StatusCode() >= http.StatusBadRequest {
 		e := new(common_pdu.Error)
 		err = json.Unmarshal(response.Body(), e)
 		if err == nil {
@@ -219,7 +219,7 @@ func (a AdminApi) GetPipelineByName(pipelineName string) (*pdu.PipelineSpec, *v1
 
 	if response.StatusCode() == http.StatusOK {
 		err = json.Unmarshal(response.Body(), pdu)
-	} else if len(response.Body()) > 0 {
+	} else if response.StatusCode() >= http.StatusBadRequest && len(response.Body()) > 0 {
 		e := new(common_pdu.Error)
 		err = json.Unmarshal(response.Body(), e)
 		if err == nil {
@@ -265,7 +265,7 @@ func (a AdminApi) CreatePipeline(pipelineCreationRequest *pdu.PipelineCreationRe
 		return ret, err
 	}
 
-	if response.StatusCode() != http.StatusOK {
+	if response.StatusCode() >= http.StatusBadRequest {
 		e := new(common_pdu.Error)
 		err = json.Unmarshal(response.Body(), e)
 		if err == nil {
@@ -311,7 +311,7 @@ func (a AdminApi) UpdatePipeline(pipelineUpdateRequest *pdu.PipelineUpdateReques
 		return ret, err
 	}
 
-	if response.StatusCode() != http.StatusOK {
+	if response.StatusCode() >= http.StatusBadRequest {
 		e := new(common_pdu.Error)
 		err = json.Unmarshal(response.Body(), e)
 		if err == nil {
@@ -360,7 +360,7 @@ func (a AdminApi) GetPluginTypes() (*pdu.PluginTypesRetrieveResponse, *v1.APIRes
 
 	if response.StatusCode() == http.StatusOK {
 		err = json.Unmarshal(response.Body(), pdu)
-	} else if len(response.Body()) > 0 {
+	} else if response.StatusCode() >= http.StatusBadRequest && len(response.Body()) > 0 {
 		e := new(common_pdu.Error)
 		err = json.Unmarshal(response.Body(), e)
 		if err == nil {
@@ -412,7 +412,7 @@ func (a AdminApi) GetPlugins(pluginsRetrieveRequest *pdu.PluginsRetrieveRequest)
 
 	if response.StatusCode() == http.StatusOK {
 		err = json.Unmarshal(response.Body(), pdu)
-	} else if len(response.Body()) > 0 {
+	} else if response.StatusCode() >= http.StatusBadRequest && len(response.Body()) > 0 {
 		e := new(common_pdu.Error)
 		err = json.Unmarshal(response.Body(), e)
 		if err == nil {
@@ -459,7 +459,7 @@ func (a AdminApi) DeletePluginByName(pluginName string) (*v1.APIResponse, error)
 		return ret, err
 	}
 
-	if response.StatusCode() != http.StatusOK {
+	if response.StatusCode() >= http.StatusBadRequest {
 		e := new(common_pdu.Error)
 		err = json.Unmarshal(response.Body(), e)
 		if err == nil {
@@ -508,7 +508,7 @@ func (a AdminApi) GetPluginByName(pluginName string) (*pdu.PluginSpec, *v1.APIRe
 
 	if response.StatusCode() == http.StatusOK {
 		err = json.Unmarshal(response.Body(), pdu)
-	} else if len(response.Body()) > 0 {
+	} else if response.StatusCode() >= http.StatusBadRequest && len(response.Body()) > 0 {
 		e := new(common_pdu.Error)
 		err = json.Unmarshal(response.Body(), e)
 		if err == nil {
@@ -554,7 +554,7 @@ func (a AdminApi) CreatePlugin(pluginCreationRequest *pdu.PluginCreationRequest)
 		return ret, err
 	}
 
-	if response.StatusCode() != http.StatusOK {
+	if response.StatusCode() >= http.StatusBadRequest {
 		e := new(common_pdu.Error)
 		err = json.Unmarshal(response.Body(), e)
 		if err == nil {
@@ -600,7 +600,7 @@ func (a AdminApi) UpdatePlugin(pluginUpdateRequest *pdu.PluginUpdateRequest) (*v
 		return ret, err
 	}
 
-	if response.StatusCode() != http.StatusOK {
+	if response.StatusCode() >= http.StatusBadRequest {
 		e := new(common_pdu.Error)
 		err = json.Unmarshal(response.Body(), e)
 		if err == nil {
