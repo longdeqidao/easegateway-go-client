@@ -1,0 +1,7 @@
+- name: build_app
+  shell: make vender_get && make
+  notifications:
+    emails:
+      - lzy.dev@gmail.com
+      - longdeqidao@gmail.com
+    slack: true
