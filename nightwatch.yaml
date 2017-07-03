@@ -1,5 +1,5 @@
 - name: build_app
-  shell: make vender_get && make
+  shell: make vendor_get && make
   notifications:
     emails:
       - lzy.dev@gmail.com
