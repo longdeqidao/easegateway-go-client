@@ -7,37 +7,39 @@ import (
 	"net/url"
 	"strings"
 
+	"github.com/hexdecteam/easegateway-go-client/rest/1.0/cluster/admin/v1/pdu"
 	"github.com/hexdecteam/easegateway-go-client/rest/1.0/common/v1"
 	common_pdu "github.com/hexdecteam/easegateway-go-client/rest/1.0/common/v1/pdu"
-	"github.com/hexdecteam/easegateway-go-client/rest/1.0/statistics/v1/pdu"
 )
 
-type StatisticsApi struct {
+type ClusterAdminApi struct {
 	Configuration *v1.Configuration
 }
 
-func NewStatisticsApi(address string) *StatisticsApi {
+func NewClusterAdminApi(address, group string) *ClusterAdminApi {
 	address = strings.TrimSpace(address)
 	if len(address) == 0 {
-		address = "127.0.0.1:9090"
+		address = "localhost:9090"
 	}
 
-	configuration := v1.NewConfiguration(fmt.Sprintf("http://%s/statistics/v1", address))
-	return &StatisticsApi{
+	configuration := v1.NewConfiguration(fmt.Sprintf("http://%s/cluster/admin/v1/%s", address, group))
+	return &ClusterAdminApi{
 		Configuration: configuration,
 	}
 }
 
-func NewStatisticsApiWithBasePath(basePath string) *StatisticsApi {
+func NewClusterAdminApiWithBasePath(basePath string) *ClusterAdminApi {
 	configuration := v1.NewConfiguration(basePath)
-	return &StatisticsApi{
+	return &ClusterAdminApi{
 		Configuration: configuration,
 	}
 }
 
-func (a StatisticsApi) GetGatewayAverageLoad() (*pdu.AvgLoad, *v1.APIResponse, error) {
+func (a ClusterAdminApi) GetPipelineTypes(group string, clusterRetrieveRequest *pdu.ClusterRetrieveRequest) (
+	*pdu.PipelineTypesRetrieveClusterResponse, *v1.APIResponse, error) {
+
 	method := strings.ToUpper("Get")
-	path := a.Configuration.BasePath + "/gateway/loadavg"
+	path := fmt.Sprintf("%s/%s/pipeline-types", a.Configuration.BasePath, group)
 	headers := make(map[string]string)
 	queryParams := url.Values{}
 
@@ -47,9 +49,9 @@ func (a StatisticsApi) GetGatewayAverageLoad() (*pdu.AvgLoad, *v1.APIResponse, e
 	}
 
 	// set Content-Type header
-	contentType := a.Configuration.APIClient.SelectHeaderContentType([]string{"application/json"})
-	if contentType != "" {
-		headers["Content-Type"] = contentType
+	contentTypes := a.Configuration.APIClient.SelectHeaderContentType([]string{"application/json"})
+	if contentTypes != "" {
+		headers["Content-Type"] = contentTypes
 	}
 
 	// set Accept header
@@ -58,10 +60,10 @@ func (a StatisticsApi) GetGatewayAverageLoad() (*pdu.AvgLoad, *v1.APIResponse, e
 		headers["Accept"] = accept
 	}
 
-	pdu := new(pdu.AvgLoad)
-	response, err := a.Configuration.APIClient.CallAPI(path, method, nil, headers, queryParams)
+	pdu := new(pdu.PipelineTypesRetrieveClusterResponse)
+	response, err := a.Configuration.APIClient.CallAPI(path, method, clusterRetrieveRequest, headers, queryParams)
 
-	ret := v1.NewAPIResponse("GetGatewayAverageLoad", method, path, queryParams)
+	ret := v1.NewAPIResponse("GetPipelineTypes", method, path, queryParams)
 	if response != nil {
 		ret.Response = response.RawResponse
 		ret.Payload = response.Body()
@@ -84,9 +86,12 @@ func (a StatisticsApi) GetGatewayAverageLoad() (*pdu.AvgLoad, *v1.APIResponse, e
 	return pdu, ret, err
 }
 
-func (a StatisticsApi) GetGatewayResourceUsage() (*pdu.ResourceUsage, *v1.APIResponse, error) {
+func (a ClusterAdminApi) GetPipelines(group string,
+	pipelinesRetrieveClusterRequest *pdu.PipelinesRetrieveClusterRequest) (
+	*pdu.PipelinesRetrieveClusterResponse, *v1.APIResponse, error) {
+
 	method := strings.ToUpper("Get")
-	path := a.Configuration.BasePath + "/gateway/rusage"
+	path := fmt.Sprintf("%s/%s/pipelines", a.Configuration.BasePath, group)
 	headers := make(map[string]string)
 	queryParams := url.Values{}
 
@@ -107,10 +112,11 @@ func (a StatisticsApi) GetGatewayResourceUsage() (*pdu.ResourceUsage, *v1.APIRes
 		headers["Accept"] = accept
 	}
 
-	pdu := new(pdu.ResourceUsage)
-	response, err := a.Configuration.APIClient.CallAPI(path, method, nil, headers, queryParams)
+	pdu := new(pdu.PipelinesRetrieveClusterResponse)
+	response, err := a.Configuration.APIClient.CallAPI(
+		path, method, pipelinesRetrieveClusterRequest, headers, queryParams)
 
-	ret := v1.NewAPIResponse("GetGatewayResourceUsage", method, path, queryParams)
+	ret := v1.NewAPIResponse("GetPipelines", method, path, queryParams)
 	if response != nil {
 		ret.Response = response.RawResponse
 		ret.Payload = response.Body()
@@ -133,9 +139,11 @@ func (a StatisticsApi) GetGatewayResourceUsage() (*pdu.ResourceUsage, *v1.APIRes
 	return pdu, ret, err
 }
 
-func (a StatisticsApi) GetGatewayUpTime() (*pdu.UpTime, *v1.APIResponse, error) {
-	method := strings.ToUpper("Get")
-	path := a.Configuration.BasePath + "/gateway/uptime"
+func (a ClusterAdminApi) DeletePipelineByName(group string, pipelineName string,
+	clusterOperationRequest *pdu.ClusterOperationRequest) (*v1.APIResponse, error) {
+
+	method := strings.ToUpper("Delete")
+	path := fmt.Sprintf("%s/%s/pipelines/%s", a.Configuration.BasePath, group, pipelineName)
 	headers := make(map[string]string)
 	queryParams := url.Values{}
 
@@ -145,21 +153,69 @@ func (a StatisticsApi) GetGatewayUpTime() (*pdu.UpTime, *v1.APIResponse, error) 
 	}
 
 	// set Content-Type header
-	localVarHttpContentType := a.Configuration.APIClient.SelectHeaderContentType([]string{"application/json"})
-	if localVarHttpContentType != "" {
-		headers["Content-Type"] = localVarHttpContentType
+	contentType := a.Configuration.APIClient.SelectHeaderContentType([]string{"application/json"})
+	if contentType != "" {
+		headers["Content-Type"] = contentType
 	}
 
 	// set Accept header
-	localVarHttpHeaderAccept := a.Configuration.APIClient.SelectHeaderAccept([]string{"application/json"})
-	if localVarHttpHeaderAccept != "" {
-		headers["Accept"] = localVarHttpHeaderAccept
+	accept := a.Configuration.APIClient.SelectHeaderAccept([]string{"application/json"})
+	if accept != "" {
+		headers["Accept"] = accept
 	}
 
-	pdu := new(pdu.UpTime)
-	response, err := a.Configuration.APIClient.CallAPI(path, method, nil, headers, queryParams)
+	response, err := a.Configuration.APIClient.CallAPI(path, method, clusterOperationRequest, headers, queryParams)
 
-	ret := v1.NewAPIResponse("GetGatewayUpTime", method, path, queryParams)
+	ret := v1.NewAPIResponse("DeletePipelineByName", method, path, queryParams)
+	if response != nil {
+		ret.Response = response.RawResponse
+		ret.Payload = response.Body()
+	}
+
+	if err != nil {
+		return ret, err
+	}
+
+	if response.StatusCode() >= http.StatusBadRequest {
+		e := new(common_pdu.Error)
+		err = json.Unmarshal(response.Body(), e)
+		if err == nil {
+			ret.Error = e
+		}
+	}
+
+	return ret, err
+}
+
+func (a ClusterAdminApi) GetPipelineByName(group string, pipelineName string,
+	clusterRetrieveRequest *pdu.ClusterRetrieveRequest) (*pdu.PipelineSpec, *v1.APIResponse, error) {
+
+	method := strings.ToUpper("Get")
+	path := fmt.Sprintf("%s/%s/pipelines/%s", a.Configuration.BasePath, group, pipelineName)
+	headers := make(map[string]string)
+	queryParams := url.Values{}
+
+	// add default headers if any
+	for key := range a.Configuration.DefaultHeader {
+		headers[key] = a.Configuration.DefaultHeader[key]
+	}
+
+	// set Content-Type header
+	contentType := a.Configuration.APIClient.SelectHeaderContentType([]string{"application/json"})
+	if contentType != "" {
+		headers["Content-Type"] = contentType
+	}
+
+	// set Accept header
+	accept := a.Configuration.APIClient.SelectHeaderAccept([]string{"application/json"})
+	if accept != "" {
+		headers["Accept"] = accept
+	}
+
+	pdu := new(pdu.PipelineSpec)
+	response, err := a.Configuration.APIClient.CallAPI(path, method, clusterRetrieveRequest, headers, queryParams)
+
+	ret := v1.NewAPIResponse("GetPipelineByName", method, path, queryParams)
 	if response != nil {
 		ret.Response = response.RawResponse
 		ret.Payload = response.Body()
@@ -182,11 +238,11 @@ func (a StatisticsApi) GetGatewayUpTime() (*pdu.UpTime, *v1.APIResponse, error) 
 	return pdu, ret, err
 }
 
-func (a StatisticsApi) GetPipelineIndicatorNames(pipelineName string) (
-	*pdu.PipelineIndicatorNames, *v1.APIResponse, error) {
+func (a ClusterAdminApi) CreatePipeline(group string,
+	pipelineCreationClusterRequest *pdu.PipelineCreationClusterRequest) (*v1.APIResponse, error) {
 
-	method := strings.ToUpper("Get")
-	path := fmt.Sprintf("%s/pipelines/%s/indicators", a.Configuration.BasePath, pipelineName)
+	method := strings.ToUpper("Post")
+	path := fmt.Sprintf("%s/%s/pipelines", a.Configuration.BasePath, group)
 	headers := make(map[string]string)
 	queryParams := url.Values{}
 
@@ -207,10 +263,108 @@ func (a StatisticsApi) GetPipelineIndicatorNames(pipelineName string) (
 		headers["Accept"] = accept
 	}
 
-	pdu := new(pdu.PipelineIndicatorNames)
-	response, err := a.Configuration.APIClient.CallAPI(path, method, nil, headers, queryParams)
+	response, err := a.Configuration.APIClient.CallAPI(
+		path, method, pipelineCreationClusterRequest, headers, queryParams)
 
-	ret := v1.NewAPIResponse("GetPipelineIndicatorNames", method, path, queryParams)
+	ret := v1.NewAPIResponse("CreatePipeline", method, path, queryParams)
+	if response != nil {
+		ret.Response = response.RawResponse
+		ret.Payload = response.Body()
+	}
+
+	if err != nil {
+		return ret, err
+	}
+
+	if response.StatusCode() >= http.StatusBadRequest {
+		e := new(common_pdu.Error)
+		err = json.Unmarshal(response.Body(), e)
+		if err == nil {
+			ret.Error = e
+		}
+	}
+
+	return ret, err
+}
+
+func (a ClusterAdminApi) UpdatePipeline(group string,
+	pipelineUpdateClusterRequest *pdu.PipelineUpdateClusterRequest) (*v1.APIResponse, error) {
+
+	method := strings.ToUpper("Put")
+	path := fmt.Sprintf("%s/%s/pipelines", a.Configuration.BasePath, group)
+	headers := make(map[string]string)
+	queryParams := url.Values{}
+
+	// add default headers if any
+	for key := range a.Configuration.DefaultHeader {
+		headers[key] = a.Configuration.DefaultHeader[key]
+	}
+
+	// set Content-Type header
+	contentType := a.Configuration.APIClient.SelectHeaderContentType([]string{"application/json"})
+	if contentType != "" {
+		headers["Content-Type"] = contentType
+	}
+
+	// set Accept header
+	accept := a.Configuration.APIClient.SelectHeaderAccept([]string{"application/json"})
+	if accept != "" {
+		headers["Accept"] = accept
+	}
+
+	response, err := a.Configuration.APIClient.CallAPI(
+		path, method, pipelineUpdateClusterRequest, headers, queryParams)
+
+	ret := v1.NewAPIResponse("UpdatePipeline", method, path, queryParams)
+	if response != nil {
+		ret.Response = response.RawResponse
+		ret.Payload = response.Body()
+	}
+
+	if err != nil {
+		return ret, err
+	}
+
+	if response.StatusCode() >= http.StatusBadRequest {
+		e := new(common_pdu.Error)
+		err = json.Unmarshal(response.Body(), e)
+		if err == nil {
+			ret.Error = e
+		}
+	}
+
+	return ret, err
+}
+
+func (a ClusterAdminApi) GetPluginTypes(group string, clusterRetrieveRequest *pdu.ClusterRetrieveRequest) (
+	*pdu.PluginTypesRetrieveClusterResponse, *v1.APIResponse, error) {
+
+	method := strings.ToUpper("Get")
+	path := fmt.Sprintf("%s/%s/plugin-types", a.Configuration.BasePath, group)
+	headers := make(map[string]string)
+	queryParams := url.Values{}
+
+	// add default headers if any
+	for key := range a.Configuration.DefaultHeader {
+		headers[key] = a.Configuration.DefaultHeader[key]
+	}
+
+	// set Content-Type header
+	contentType := a.Configuration.APIClient.SelectHeaderContentType([]string{"application/json"})
+	if contentType != "" {
+		headers["Content-Type"] = contentType
+	}
+
+	// set Accept header
+	accept := a.Configuration.APIClient.SelectHeaderAccept([]string{"application/json"})
+	if accept != "" {
+		headers["Accept"] = accept
+	}
+
+	pdu := new(pdu.PluginTypesRetrieveClusterResponse)
+	response, err := a.Configuration.APIClient.CallAPI(path, method, clusterRetrieveRequest, headers, queryParams)
+
+	ret := v1.NewAPIResponse("GetPluginTypes", method, path, queryParams)
 	if response != nil {
 		ret.Response = response.RawResponse
 		ret.Payload = response.Body()
@@ -233,11 +387,11 @@ func (a StatisticsApi) GetPipelineIndicatorNames(pipelineName string) (
 	return pdu, ret, err
 }
 
-func (a StatisticsApi) GetPipelineIndicatorDesc(pipelineName string, indicatorName string) (
-	*pdu.PipelineIndicatorDescription, *v1.APIResponse, error) {
+func (a ClusterAdminApi) GetPlugins(group string, pluginsRetrieveClusterRequest *pdu.PluginsRetrieveClusterRequest) (
+	*pdu.PluginsRetrieveClusterResponse, *v1.APIResponse, error) {
 
 	method := strings.ToUpper("Get")
-	path := fmt.Sprintf("%s/pipelines/%s/indicators/%s/desc", a.Configuration.BasePath, pipelineName, indicatorName)
+	path := fmt.Sprintf("%s/%s/plugins", a.Configuration.BasePath, group)
 	headers := make(map[string]string)
 	queryParams := url.Values{}
 
@@ -258,10 +412,11 @@ func (a StatisticsApi) GetPipelineIndicatorDesc(pipelineName string, indicatorNa
 		headers["Accept"] = accept
 	}
 
-	pdu := new(pdu.PipelineIndicatorDescription)
-	response, err := a.Configuration.APIClient.CallAPI(path, method, nil, headers, queryParams)
+	pdu := new(pdu.PluginsRetrieveClusterResponse)
+	response, err := a.Configuration.APIClient.CallAPI(
+		path, method, pluginsRetrieveClusterRequest, headers, queryParams)
 
-	ret := v1.NewAPIResponse("GetPipelineIndicatorDesc", method, path, queryParams)
+	ret := v1.NewAPIResponse("GetPlugins", method, path, queryParams)
 	if response != nil {
 		ret.Response = response.RawResponse
 		ret.Payload = response.Body()
@@ -284,11 +439,11 @@ func (a StatisticsApi) GetPipelineIndicatorDesc(pipelineName string, indicatorNa
 	return pdu, ret, err
 }
 
-func (a StatisticsApi) GetPipelineIndicatorValue(pipelineName string, indicatorName string) (
-	*pdu.PipelineIndicatorValue, *v1.APIResponse, error) {
+func (a ClusterAdminApi) DeletePluginByName(group string, pluginName string,
+	clusterOperationRequest *pdu.ClusterOperationRequest) (*v1.APIResponse, error) {
 
-	method := strings.ToUpper("Get")
-	path := fmt.Sprintf("%s/pipelines/%s/indicators/%s/value", a.Configuration.BasePath, pipelineName, indicatorName)
+	method := strings.ToUpper("Delete")
+	path := fmt.Sprintf("%s/%s/plugins/%s", a.Configuration.BasePath, group, pluginName)
 	headers := make(map[string]string)
 	queryParams := url.Values{}
 
@@ -309,10 +464,58 @@ func (a StatisticsApi) GetPipelineIndicatorValue(pipelineName string, indicatorN
 		headers["Accept"] = accept
 	}
 
-	pdu := new(pdu.PipelineIndicatorValue)
-	response, err := a.Configuration.APIClient.CallAPI(path, method, nil, headers, queryParams)
+	response, err := a.Configuration.APIClient.CallAPI(path, method, clusterOperationRequest, headers, queryParams)
 
-	ret := v1.NewAPIResponse("GetPipelineIndicatorValue", method, path, queryParams)
+	ret := v1.NewAPIResponse("DeletePluginByName", method, path, queryParams)
+	if response != nil {
+		ret.Response = response.RawResponse
+		ret.Payload = response.Body()
+	}
+
+	if err != nil {
+		return ret, err
+	}
+
+	if response.StatusCode() >= http.StatusBadRequest {
+		e := new(common_pdu.Error)
+		err = json.Unmarshal(response.Body(), e)
+		if err == nil {
+			ret.Error = e
+		}
+	}
+
+	return ret, err
+}
+
+func (a ClusterAdminApi) GetPluginByName(group string, pluginName string,
+	clusterRetrieveRequest *pdu.ClusterRetrieveRequest) (*pdu.PluginSpec, *v1.APIResponse, error) {
+
+	method := strings.ToUpper("Get")
+	path := fmt.Sprintf("%s/%s/plugins/%s", a.Configuration.BasePath, group, pluginName)
+	headers := make(map[string]string)
+	queryParams := url.Values{}
+
+	// add default headers if any
+	for key := range a.Configuration.DefaultHeader {
+		headers[key] = a.Configuration.DefaultHeader[key]
+	}
+
+	// set Content-Type header
+	contentType := a.Configuration.APIClient.SelectHeaderContentType([]string{"application/json"})
+	if contentType != "" {
+		headers["Content-Type"] = contentType
+	}
+
+	// set Accept header
+	accept := a.Configuration.APIClient.SelectHeaderAccept([]string{"application/json"})
+	if accept != "" {
+		headers["Accept"] = accept
+	}
+
+	pdu := new(pdu.PluginSpec)
+	response, err := a.Configuration.APIClient.CallAPI(path, method, clusterRetrieveRequest, headers, queryParams)
+
+	ret := v1.NewAPIResponse("GetPluginByName", method, path, queryParams)
 	if response != nil {
 		ret.Response = response.RawResponse
 		ret.Payload = response.Body()
@@ -335,11 +538,11 @@ func (a StatisticsApi) GetPipelineIndicatorValue(pipelineName string, indicatorN
 	return pdu, ret, err
 }
 
-func (a StatisticsApi) GetPluginIndicatorNames(pipelineName string, pluginName string) (
-	*pdu.PluginIndicatorNames, *v1.APIResponse, error) {
+func (a ClusterAdminApi) CreatePlugin(group string,
+	pluginCreationClusterRequest *pdu.PluginCreationClusterRequest) (*v1.APIResponse, error) {
 
-	method := strings.ToUpper("Get")
-	path := fmt.Sprintf("%s/pipelines/%s/plugins/%s/indicators", a.Configuration.BasePath, pipelineName, pluginName)
+	method := strings.ToUpper("Post")
+	path := fmt.Sprintf("%s/%s/plugins", a.Configuration.BasePath, group)
 	headers := make(map[string]string)
 	queryParams := url.Values{}
 
@@ -360,22 +563,20 @@ func (a StatisticsApi) GetPluginIndicatorNames(pipelineName string, pluginName s
 		headers["Accept"] = accept
 	}
 
-	pdu := new(pdu.PluginIndicatorNames)
-	response, err := a.Configuration.APIClient.CallAPI(path, method, nil, headers, queryParams)
+	response, err := a.Configuration.APIClient.CallAPI(
+		path, method, pluginCreationClusterRequest, headers, queryParams)
 
-	ret := v1.NewAPIResponse("GetPluginIndicatorNames", method, path, queryParams)
+	ret := v1.NewAPIResponse("CreatePlugin", method, path, queryParams)
 	if response != nil {
 		ret.Response = response.RawResponse
 		ret.Payload = response.Body()
 	}
 
 	if err != nil {
-		return pdu, ret, err
+		return ret, err
 	}
 
-	if response.StatusCode() == http.StatusOK {
-		err = json.Unmarshal(response.Body(), pdu)
-	} else if response.StatusCode() >= http.StatusBadRequest && len(response.Body()) > 0 {
+	if response.StatusCode() >= http.StatusBadRequest {
 		e := new(common_pdu.Error)
 		err = json.Unmarshal(response.Body(), e)
 		if err == nil {
@@ -383,16 +584,14 @@ func (a StatisticsApi) GetPluginIndicatorNames(pipelineName string, pluginName s
 		}
 	}
 
-	return pdu, ret, err
+	return ret, err
 }
 
-func (a StatisticsApi) GetPluginIndicatorDesc(pipelineName string, pluginName string, indicatorName string) (
-	*pdu.PluginIndicatorDescription, *v1.APIResponse, error) {
+func (a ClusterAdminApi) GroupPluginsPut(group string,
+	pluginUpdateClusterRequest *pdu.PluginUpdateClusterRequest) (*v1.APIResponse, error) {
 
-	method := strings.ToUpper("Get")
-	// create path and map variables
-	path := fmt.Sprintf("%s/pipelines/%s/plugins/%s/indicators/%s/desc",
-		a.Configuration.BasePath, pipelineName, pluginName, indicatorName)
+	method := strings.ToUpper("Put")
+	path := fmt.Sprintf("%s/%s/plugins", a.Configuration.BasePath, group)
 	headers := make(map[string]string)
 	queryParams := url.Values{}
 
@@ -400,7 +599,6 @@ func (a StatisticsApi) GetPluginIndicatorDesc(pipelineName string, pluginName st
 	for key := range a.Configuration.DefaultHeader {
 		headers[key] = a.Configuration.DefaultHeader[key]
 	}
-
 	// set Content-Type header
 	contentType := a.Configuration.APIClient.SelectHeaderContentType([]string{"application/json"})
 	if contentType != "" {
@@ -413,22 +611,20 @@ func (a StatisticsApi) GetPluginIndicatorDesc(pipelineName string, pluginName st
 		headers["Accept"] = accept
 	}
 
-	pdu := new(pdu.PluginIndicatorDescription)
-	response, err := a.Configuration.APIClient.CallAPI(path, method, nil, headers, queryParams)
+	response, err := a.Configuration.APIClient.CallAPI(
+		path, method, pluginUpdateClusterRequest, headers, queryParams)
 
-	ret := v1.NewAPIResponse("GetPluginIndicatorDesc", method, path, queryParams)
+	ret := v1.NewAPIResponse("UpdatePlugin", method, path, queryParams)
 	if response != nil {
 		ret.Response = response.RawResponse
 		ret.Payload = response.Body()
 	}
 
 	if err != nil {
-		return pdu, ret, err
+		return ret, err
 	}
 
-	if response.StatusCode() == http.StatusOK {
-		err = json.Unmarshal(response.Body(), pdu)
-	} else if response.StatusCode() >= http.StatusBadRequest && len(response.Body()) > 0 {
+	if response.StatusCode() >= http.StatusBadRequest {
 		e := new(common_pdu.Error)
 		err = json.Unmarshal(response.Body(), e)
 		if err == nil {
@@ -436,212 +632,5 @@ func (a StatisticsApi) GetPluginIndicatorDesc(pipelineName string, pluginName st
 		}
 	}
 
-	return pdu, ret, err
-}
-
-func (a StatisticsApi) GetPluginIndicatorValue(pipelineName string, pluginName string, indicatorName string) (
-	*pdu.PluginIndicatorValue, *v1.APIResponse, error) {
-
-	method := strings.ToUpper("Get")
-	path := fmt.Sprintf("%s/pipelines/%s/plugins/%s/indicators/%s/value",
-		a.Configuration.BasePath, pipelineName, pluginName, indicatorName)
-	headers := make(map[string]string)
-	queryParams := url.Values{}
-
-	// add default headers if any
-	for key := range a.Configuration.DefaultHeader {
-		headers[key] = a.Configuration.DefaultHeader[key]
-	}
-
-	// set Content-Type header
-	contentType := a.Configuration.APIClient.SelectHeaderContentType([]string{"application/json"})
-	if contentType != "" {
-		headers["Content-Type"] = contentType
-	}
-
-	// set Accept header
-	accept := a.Configuration.APIClient.SelectHeaderAccept([]string{"application/json"})
-	if accept != "" {
-		headers["Accept"] = accept
-	}
-
-	pdu := new(pdu.PluginIndicatorValue)
-	response, err := a.Configuration.APIClient.CallAPI(path, method, nil, headers, queryParams)
-
-	ret := v1.NewAPIResponse("GetPluginIndicatorValue", method, path, queryParams)
-	if response != nil {
-		ret.Response = response.RawResponse
-		ret.Payload = response.Body()
-	}
-
-	if err != nil {
-		return pdu, ret, err
-	}
-
-	if response.StatusCode() == http.StatusOK {
-		err = json.Unmarshal(response.Body(), pdu)
-	} else if response.StatusCode() >= http.StatusBadRequest && len(response.Body()) > 0 {
-		e := new(common_pdu.Error)
-		err = json.Unmarshal(response.Body(), e)
-		if err == nil {
-			ret.Error = e
-		}
-	}
-
-	return pdu, ret, err
-}
-
-func (a StatisticsApi) GetTaskIndicatorNames(pipelineName string) (*pdu.TaskIndicatorNames, *v1.APIResponse, error) {
-
-	method := strings.ToUpper("Get")
-	// create path and map variables
-	path := fmt.Sprintf("%s/pipelines/%s/task/indicators", a.Configuration.BasePath, pipelineName)
-	headers := make(map[string]string)
-	queryParams := url.Values{}
-
-	// add default headers if any
-	for key := range a.Configuration.DefaultHeader {
-		headers[key] = a.Configuration.DefaultHeader[key]
-	}
-
-	// set Content-Type header
-	contentType := a.Configuration.APIClient.SelectHeaderContentType([]string{"application/json"})
-	if contentType != "" {
-		headers["Content-Type"] = contentType
-	}
-
-	// set Accept header
-	accept := a.Configuration.APIClient.SelectHeaderAccept([]string{"application/json"})
-	if accept != "" {
-		headers["Accept"] = accept
-	}
-
-	pdu := new(pdu.TaskIndicatorNames)
-	response, err := a.Configuration.APIClient.CallAPI(path, method, nil, headers, queryParams)
-
-	ret := v1.NewAPIResponse("GetTaskIndicatorNames", method, path, queryParams)
-	if response != nil {
-		ret.Response = response.RawResponse
-		ret.Payload = response.Body()
-	}
-
-	if err != nil {
-		return pdu, ret, err
-	}
-
-	if response.StatusCode() == http.StatusOK {
-		err = json.Unmarshal(response.Body(), pdu)
-	} else if response.StatusCode() >= http.StatusBadRequest && len(response.Body()) > 0 {
-		e := new(common_pdu.Error)
-		err = json.Unmarshal(response.Body(), e)
-		if err == nil {
-			ret.Error = e
-		}
-	}
-
-	return pdu, ret, err
-}
-
-func (a StatisticsApi) GetTaskIndicatorDesc(pipelineName string, indicatorName string) (
-	*pdu.TaskIndicatorDescription, *v1.APIResponse, error) {
-
-	method := strings.ToUpper("Get")
-	path := fmt.Sprintf("%s/pipelines/%s/task/indicators/%s/desc",
-		a.Configuration.BasePath, pipelineName, indicatorName)
-	headers := make(map[string]string)
-	queryParams := url.Values{}
-
-	// add default headers if any
-	for key := range a.Configuration.DefaultHeader {
-		headers[key] = a.Configuration.DefaultHeader[key]
-	}
-
-	// set Content-Type header
-	contentType := a.Configuration.APIClient.SelectHeaderContentType([]string{"application/json"})
-	if contentType != "" {
-		headers["Content-Type"] = contentType
-	}
-
-	// set Accept header
-	accept := a.Configuration.APIClient.SelectHeaderAccept([]string{"application/json"})
-	if accept != "" {
-		headers["Accept"] = accept
-	}
-
-	pdu := new(pdu.TaskIndicatorDescription)
-	response, err := a.Configuration.APIClient.CallAPI(path, method, nil, headers, queryParams)
-
-	ret := v1.NewAPIResponse("GetTaskIndicatorDesc", method, path, queryParams)
-	if response != nil {
-		ret.Response = response.RawResponse
-		ret.Payload = response.Body()
-	}
-
-	if err != nil {
-		return pdu, ret, err
-	}
-
-	if response.StatusCode() == http.StatusOK {
-		err = json.Unmarshal(response.Body(), pdu)
-	} else if response.StatusCode() >= http.StatusBadRequest && len(response.Body()) > 0 {
-		e := new(common_pdu.Error)
-		err = json.Unmarshal(response.Body(), e)
-		if err == nil {
-			ret.Error = e
-		}
-	}
-
-	return pdu, ret, err
-}
-
-func (a StatisticsApi) GetTaskIndicatorValue(pipelineName string, indicatorName string) (
-	*pdu.TaskIndicatorValue, *v1.APIResponse, error) {
-
-	method := strings.ToUpper("Get")
-	path := fmt.Sprintf("%s/pipelines/%s/task/indicators/%s/value",
-		a.Configuration.BasePath, pipelineName, indicatorName)
-	headers := make(map[string]string)
-	queryParams := url.Values{}
-
-	// add default headers if any
-	for key := range a.Configuration.DefaultHeader {
-		headers[key] = a.Configuration.DefaultHeader[key]
-	}
-
-	// set Content-Type header
-	contentType := a.Configuration.APIClient.SelectHeaderContentType([]string{"application/json"})
-	if contentType != "" {
-		headers["Content-Type"] = contentType
-	}
-
-	// set Accept header
-	accept := a.Configuration.APIClient.SelectHeaderAccept([]string{"application/json"})
-	if accept != "" {
-		headers["Accept"] = accept
-	}
-
-	pdu := new(pdu.TaskIndicatorValue)
-	response, err := a.Configuration.APIClient.CallAPI(path, method, nil, headers, queryParams)
-
-	ret := v1.NewAPIResponse("GetTaskIndicatorValue", method, path, queryParams)
-	if response != nil {
-		ret.Response = response.RawResponse
-		ret.Payload = response.Body()
-	}
-
-	if err != nil {
-		return pdu, ret, err
-	}
-
-	if response.StatusCode() == http.StatusOK {
-		err = json.Unmarshal(response.Body(), pdu)
-	} else if response.StatusCode() >= http.StatusBadRequest && len(response.Body()) > 0 {
-		e := new(common_pdu.Error)
-		err = json.Unmarshal(response.Body(), e)
-		if err == nil {
-			ret.Error = e
-		}
-	}
-
-	return pdu, ret, err
+	return ret, err
 }

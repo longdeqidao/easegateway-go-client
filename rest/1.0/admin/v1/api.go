@@ -19,7 +19,7 @@ type AdminApi struct {
 func NewAdminApi(address string) *AdminApi {
 	address = strings.TrimSpace(address)
 	if len(address) == 0 {
-		address = "localhost:9090"
+		address = "127.0.0.1:9090"
 	}
 
 	configuration := v1.NewConfiguration(fmt.Sprintf("http://%s/admin/v1", address))
