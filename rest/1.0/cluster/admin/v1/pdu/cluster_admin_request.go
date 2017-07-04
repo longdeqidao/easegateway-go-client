@@ -11,5 +11,5 @@ type ClusterRetrieveRequest struct {
 
 type ClusterOperationRequest struct {
 	ClusterRetrieveRequest
-	OperationSeq int32 `json:"operation_seq"`
+	OperationSeq uint64 `json:"operation_seq"`
 }
