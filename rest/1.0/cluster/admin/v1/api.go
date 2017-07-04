@@ -16,13 +16,13 @@ type ClusterAdminApi struct {
 	Configuration *v1.Configuration
 }
 
-func NewClusterAdminApi(address, group string) *ClusterAdminApi {
+func NewClusterAdminApi(addres) *ClusterAdminApi {
 	address = strings.TrimSpace(address)
 	if len(address) == 0 {
 		address = "localhost:9090"
 	}
 
-	configuration := v1.NewConfiguration(fmt.Sprintf("http://%s/cluster/admin/v1/%s", address, group))
+	configuration := v1.NewConfiguration(fmt.Sprintf("http://%s/cluster/admin/v1", address))
 	return &ClusterAdminApi{
 		Configuration: configuration,
 	}
