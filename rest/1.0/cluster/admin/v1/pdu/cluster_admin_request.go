@@ -1,11 +1,11 @@
 package pdu
 
-type ClusterRequest struct {
-	TimeoutSec int32 `json:"timeout_sec,omitempty"`
-}
+import (
+	common_pdu "github.com/hexdecteam/easegateway-go-client/rest/1.0/common/v1/pdu"
+)
 
 type ClusterRetrieveRequest struct {
-	ClusterRequest
+	common_pdu.ClusterRequest
 	Consistent bool `json:"consistent,omitempty"`
 }
 
