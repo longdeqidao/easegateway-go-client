@@ -16,7 +16,7 @@ type ClusterAdminApi struct {
 	Configuration *v1.Configuration
 }
 
-func NewClusterAdminApi(addres) *ClusterAdminApi {
+func NewClusterAdminApi(address string) *ClusterAdminApi {
 	address = strings.TrimSpace(address)
 	if len(address) == 0 {
 		address = "localhost:9090"
