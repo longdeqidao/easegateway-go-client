@@ -34,7 +34,7 @@ func NewHealthApiWithBasePath(basePath string) *HealthApi {
 	}
 }
 
-func (a HealthApi) Check() (*v1.APIResponse, error) {
+func (a *HealthApi) Check() (*v1.APIResponse, error) {
 	method := strings.ToUpper("Get")
 	path := a.Configuration.BasePath + "/check"
 	headers := make(map[string]string)

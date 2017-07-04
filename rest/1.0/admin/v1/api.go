@@ -35,7 +35,7 @@ func NewAdminApiWithBasePath(basePath string) *AdminApi {
 	}
 }
 
-func (a AdminApi) GetPipelineTypes() (*pdu.PipelineTypesRetrieveResponse, *v1.APIResponse, error) {
+func (a *AdminApi) GetPipelineTypes() (*pdu.PipelineTypesRetrieveResponse, *v1.APIResponse, error) {
 	method := strings.ToUpper("Get")
 	path := a.Configuration.BasePath + "/pipeline-types"
 	headers := make(map[string]string)
@@ -84,7 +84,7 @@ func (a AdminApi) GetPipelineTypes() (*pdu.PipelineTypesRetrieveResponse, *v1.AP
 	return pdu, ret, err
 }
 
-func (a AdminApi) GetPipelines(pipelinesRetrieveRequest *pdu.PipelinesRetrieveRequest) (
+func (a *AdminApi) GetPipelines(pipelinesRetrieveRequest *pdu.PipelinesRetrieveRequest) (
 	*pdu.PipelinesRetrieveResponse, *v1.APIResponse, error) {
 
 	method := strings.ToUpper("Get")
@@ -110,7 +110,8 @@ func (a AdminApi) GetPipelines(pipelinesRetrieveRequest *pdu.PipelinesRetrieveRe
 	}
 
 	pdu := new(pdu.PipelinesRetrieveResponse)
-	response, err := a.Configuration.APIClient.CallAPI(path, method, pipelinesRetrieveRequest, headers, queryParams)
+	response, err := a.Configuration.APIClient.CallAPI(
+		path, method, pipelinesRetrieveRequest, headers, queryParams)
 
 	ret := v1.NewAPIResponse("GetPipelines", method, path, queryParams)
 	if response != nil {
@@ -135,7 +136,7 @@ func (a AdminApi) GetPipelines(pipelinesRetrieveRequest *pdu.PipelinesRetrieveRe
 	return pdu, ret, err
 }
 
-func (a AdminApi) DeletePipelineByName(pipelineName string) (*v1.APIResponse, error) {
+func (a *AdminApi) DeletePipelineByName(pipelineName string) (*v1.APIResponse, error) {
 	method := strings.ToUpper("Delete")
 	path := fmt.Sprintf("%s/pipelines/%s", a.Configuration.BasePath, pipelineName)
 	headers := make(map[string]string)
@@ -181,7 +182,7 @@ func (a AdminApi) DeletePipelineByName(pipelineName string) (*v1.APIResponse, er
 	return ret, err
 }
 
-func (a AdminApi) GetPipelineByName(pipelineName string) (*pdu.PipelineSpec, *v1.APIResponse, error) {
+func (a *AdminApi) GetPipelineByName(pipelineName string) (*pdu.PipelineSpec, *v1.APIResponse, error) {
 	method := strings.ToUpper("Get")
 	path := fmt.Sprintf("%s/pipelines/%s", a.Configuration.BasePath, pipelineName)
 	headers := make(map[string]string)
@@ -230,7 +231,7 @@ func (a AdminApi) GetPipelineByName(pipelineName string) (*pdu.PipelineSpec, *v1
 	return pdu, ret, err
 }
 
-func (a AdminApi) CreatePipeline(pipelineCreationRequest *pdu.PipelineCreationRequest) (*v1.APIResponse, error) {
+func (a *AdminApi) CreatePipeline(pipelineCreationRequest *pdu.PipelineCreationRequest) (*v1.APIResponse, error) {
 	method := strings.ToUpper("Post")
 	path := a.Configuration.BasePath + "/pipelines"
 	headers := make(map[string]string)
@@ -253,7 +254,8 @@ func (a AdminApi) CreatePipeline(pipelineCreationRequest *pdu.PipelineCreationRe
 		headers["Accept"] = accept
 	}
 
-	response, err := a.Configuration.APIClient.CallAPI(path, method, pipelineCreationRequest, headers, queryParams)
+	response, err := a.Configuration.APIClient.CallAPI(
+		path, method, pipelineCreationRequest, headers, queryParams)
 
 	ret := v1.NewAPIResponse("CreatePipeline", method, path, queryParams)
 	if response != nil {
@@ -276,7 +278,7 @@ func (a AdminApi) CreatePipeline(pipelineCreationRequest *pdu.PipelineCreationRe
 	return ret, err
 }
 
-func (a AdminApi) UpdatePipeline(pipelineUpdateRequest *pdu.PipelineUpdateRequest) (*v1.APIResponse, error) {
+func (a *AdminApi) UpdatePipeline(pipelineUpdateRequest *pdu.PipelineUpdateRequest) (*v1.APIResponse, error) {
 	method := strings.ToUpper("Put")
 	path := a.Configuration.BasePath + "/pipelines"
 	headers := make(map[string]string)
@@ -299,7 +301,8 @@ func (a AdminApi) UpdatePipeline(pipelineUpdateRequest *pdu.PipelineUpdateReques
 		headers["Accept"] = accept
 	}
 
-	response, err := a.Configuration.APIClient.CallAPI(path, method, pipelineUpdateRequest, headers, queryParams)
+	response, err := a.Configuration.APIClient.CallAPI(
+		path, method, pipelineUpdateRequest, headers, queryParams)
 
 	ret := v1.NewAPIResponse("UpdatePipeline", method, path, queryParams)
 	if response != nil {
@@ -322,7 +325,7 @@ func (a AdminApi) UpdatePipeline(pipelineUpdateRequest *pdu.PipelineUpdateReques
 	return ret, err
 }
 
-func (a AdminApi) GetPluginTypes() (*pdu.PluginTypesRetrieveResponse, *v1.APIResponse, error) {
+func (a *AdminApi) GetPluginTypes() (*pdu.PluginTypesRetrieveResponse, *v1.APIResponse, error) {
 	method := strings.ToUpper("Get")
 	path := a.Configuration.BasePath + "/plugin-types"
 	headers := make(map[string]string)
@@ -371,7 +374,7 @@ func (a AdminApi) GetPluginTypes() (*pdu.PluginTypesRetrieveResponse, *v1.APIRes
 	return pdu, ret, err
 }
 
-func (a AdminApi) GetPlugins(pluginsRetrieveRequest *pdu.PluginsRetrieveRequest) (
+func (a *AdminApi) GetPlugins(pluginsRetrieveRequest *pdu.PluginsRetrieveRequest) (
 	*pdu.PluginsRetrieveResponse, *v1.APIResponse, error) {
 
 	var method = strings.ToUpper("Get")
@@ -398,7 +401,8 @@ func (a AdminApi) GetPlugins(pluginsRetrieveRequest *pdu.PluginsRetrieveRequest)
 	}
 
 	pdu := new(pdu.PluginsRetrieveResponse)
-	response, err := a.Configuration.APIClient.CallAPI(path, method, pluginsRetrieveRequest, headers, queryParams)
+	response, err := a.Configuration.APIClient.CallAPI(
+		path, method, pluginsRetrieveRequest, headers, queryParams)
 
 	ret := v1.NewAPIResponse("GetPlugins", method, path, queryParams)
 	if response != nil {
@@ -423,7 +427,7 @@ func (a AdminApi) GetPlugins(pluginsRetrieveRequest *pdu.PluginsRetrieveRequest)
 	return pdu, ret, err
 }
 
-func (a AdminApi) DeletePluginByName(pluginName string) (*v1.APIResponse, error) {
+func (a *AdminApi) DeletePluginByName(pluginName string) (*v1.APIResponse, error) {
 	method := strings.ToUpper("Delete")
 	// create path and map variables
 	path := fmt.Sprintf("%s/plugins/%s", a.Configuration.BasePath, pluginName)
@@ -470,7 +474,7 @@ func (a AdminApi) DeletePluginByName(pluginName string) (*v1.APIResponse, error)
 	return ret, err
 }
 
-func (a AdminApi) GetPluginByName(pluginName string) (*pdu.PluginSpec, *v1.APIResponse, error) {
+func (a *AdminApi) GetPluginByName(pluginName string) (*pdu.PluginSpec, *v1.APIResponse, error) {
 	method := strings.ToUpper("Get")
 	path := fmt.Sprintf("%s/plugins/%s", a.Configuration.BasePath, pluginName)
 	headers := make(map[string]string)
@@ -519,7 +523,7 @@ func (a AdminApi) GetPluginByName(pluginName string) (*pdu.PluginSpec, *v1.APIRe
 	return pdu, ret, err
 }
 
-func (a AdminApi) CreatePlugin(pluginCreationRequest *pdu.PluginCreationRequest) (*v1.APIResponse, error) {
+func (a *AdminApi) CreatePlugin(pluginCreationRequest *pdu.PluginCreationRequest) (*v1.APIResponse, error) {
 	method := strings.ToUpper("Post")
 	path := a.Configuration.BasePath + "/plugins"
 	headers := make(map[string]string)
@@ -565,7 +569,7 @@ func (a AdminApi) CreatePlugin(pluginCreationRequest *pdu.PluginCreationRequest)
 	return ret, err
 }
 
-func (a AdminApi) UpdatePlugin(pluginUpdateRequest *pdu.PluginUpdateRequest) (*v1.APIResponse, error) {
+func (a *AdminApi) UpdatePlugin(pluginUpdateRequest *pdu.PluginUpdateRequest) (*v1.APIResponse, error) {
 	method := strings.ToUpper("Put")
 	path := a.Configuration.BasePath + "/plugins"
 	headers := make(map[string]string)

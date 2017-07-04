@@ -35,7 +35,7 @@ func NewStatisticsApiWithBasePath(basePath string) *StatisticsApi {
 	}
 }
 
-func (a StatisticsApi) GetGatewayAverageLoad() (*pdu.AvgLoad, *v1.APIResponse, error) {
+func (a *StatisticsApi) GetGatewayAverageLoad() (*pdu.AvgLoad, *v1.APIResponse, error) {
 	method := strings.ToUpper("Get")
 	path := a.Configuration.BasePath + "/gateway/loadavg"
 	headers := make(map[string]string)
@@ -84,7 +84,7 @@ func (a StatisticsApi) GetGatewayAverageLoad() (*pdu.AvgLoad, *v1.APIResponse, e
 	return pdu, ret, err
 }
 
-func (a StatisticsApi) GetGatewayResourceUsage() (*pdu.ResourceUsage, *v1.APIResponse, error) {
+func (a *StatisticsApi) GetGatewayResourceUsage() (*pdu.ResourceUsage, *v1.APIResponse, error) {
 	method := strings.ToUpper("Get")
 	path := a.Configuration.BasePath + "/gateway/rusage"
 	headers := make(map[string]string)
@@ -133,7 +133,7 @@ func (a StatisticsApi) GetGatewayResourceUsage() (*pdu.ResourceUsage, *v1.APIRes
 	return pdu, ret, err
 }
 
-func (a StatisticsApi) GetGatewayUpTime() (*pdu.UpTime, *v1.APIResponse, error) {
+func (a *StatisticsApi) GetGatewayUpTime() (*pdu.UpTime, *v1.APIResponse, error) {
 	method := strings.ToUpper("Get")
 	path := a.Configuration.BasePath + "/gateway/uptime"
 	headers := make(map[string]string)
@@ -182,7 +182,7 @@ func (a StatisticsApi) GetGatewayUpTime() (*pdu.UpTime, *v1.APIResponse, error) 
 	return pdu, ret, err
 }
 
-func (a StatisticsApi) GetPipelineIndicatorNames(pipelineName string) (
+func (a *StatisticsApi) GetPipelineIndicatorNames(pipelineName string) (
 	*pdu.PipelineIndicatorNames, *v1.APIResponse, error) {
 
 	method := strings.ToUpper("Get")
@@ -233,7 +233,7 @@ func (a StatisticsApi) GetPipelineIndicatorNames(pipelineName string) (
 	return pdu, ret, err
 }
 
-func (a StatisticsApi) GetPipelineIndicatorDesc(pipelineName string, indicatorName string) (
+func (a *StatisticsApi) GetPipelineIndicatorDesc(pipelineName string, indicatorName string) (
 	*pdu.PipelineIndicatorDescription, *v1.APIResponse, error) {
 
 	method := strings.ToUpper("Get")
@@ -284,7 +284,7 @@ func (a StatisticsApi) GetPipelineIndicatorDesc(pipelineName string, indicatorNa
 	return pdu, ret, err
 }
 
-func (a StatisticsApi) GetPipelineIndicatorValue(pipelineName string, indicatorName string) (
+func (a *StatisticsApi) GetPipelineIndicatorValue(pipelineName string, indicatorName string) (
 	*pdu.PipelineIndicatorValue, *v1.APIResponse, error) {
 
 	method := strings.ToUpper("Get")
@@ -335,7 +335,7 @@ func (a StatisticsApi) GetPipelineIndicatorValue(pipelineName string, indicatorN
 	return pdu, ret, err
 }
 
-func (a StatisticsApi) GetPluginIndicatorNames(pipelineName string, pluginName string) (
+func (a *StatisticsApi) GetPluginIndicatorNames(pipelineName string, pluginName string) (
 	*pdu.PluginIndicatorNames, *v1.APIResponse, error) {
 
 	method := strings.ToUpper("Get")
@@ -386,7 +386,7 @@ func (a StatisticsApi) GetPluginIndicatorNames(pipelineName string, pluginName s
 	return pdu, ret, err
 }
 
-func (a StatisticsApi) GetPluginIndicatorDesc(pipelineName string, pluginName string, indicatorName string) (
+func (a *StatisticsApi) GetPluginIndicatorDesc(pipelineName string, pluginName string, indicatorName string) (
 	*pdu.PluginIndicatorDescription, *v1.APIResponse, error) {
 
 	method := strings.ToUpper("Get")
@@ -439,7 +439,7 @@ func (a StatisticsApi) GetPluginIndicatorDesc(pipelineName string, pluginName st
 	return pdu, ret, err
 }
 
-func (a StatisticsApi) GetPluginIndicatorValue(pipelineName string, pluginName string, indicatorName string) (
+func (a *StatisticsApi) GetPluginIndicatorValue(pipelineName string, pluginName string, indicatorName string) (
 	*pdu.PluginIndicatorValue, *v1.APIResponse, error) {
 
 	method := strings.ToUpper("Get")
@@ -491,7 +491,7 @@ func (a StatisticsApi) GetPluginIndicatorValue(pipelineName string, pluginName s
 	return pdu, ret, err
 }
 
-func (a StatisticsApi) GetTaskIndicatorNames(pipelineName string) (*pdu.TaskIndicatorNames, *v1.APIResponse, error) {
+func (a *StatisticsApi) GetTaskIndicatorNames(pipelineName string) (*pdu.TaskIndicatorNames, *v1.APIResponse, error) {
 
 	method := strings.ToUpper("Get")
 	path := fmt.Sprintf("%s/pipelines/%s/task/indicators", a.Configuration.BasePath, pipelineName)
@@ -541,7 +541,7 @@ func (a StatisticsApi) GetTaskIndicatorNames(pipelineName string) (*pdu.TaskIndi
 	return pdu, ret, err
 }
 
-func (a StatisticsApi) GetTaskIndicatorDesc(pipelineName string, indicatorName string) (
+func (a *StatisticsApi) GetTaskIndicatorDesc(pipelineName string, indicatorName string) (
 	*pdu.TaskIndicatorDescription, *v1.APIResponse, error) {
 
 	method := strings.ToUpper("Get")
@@ -593,7 +593,7 @@ func (a StatisticsApi) GetTaskIndicatorDesc(pipelineName string, indicatorName s
 	return pdu, ret, err
 }
 
-func (a StatisticsApi) GetTaskIndicatorValue(pipelineName string, indicatorName string) (
+func (a *StatisticsApi) GetTaskIndicatorValue(pipelineName string, indicatorName string) (
 	*pdu.TaskIndicatorValue, *v1.APIResponse, error) {
 
 	method := strings.ToUpper("Get")

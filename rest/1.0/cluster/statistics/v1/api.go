@@ -35,8 +35,9 @@ func NewClusterStatisticsApiWithBasePath(basePath string) *ClusterStatisticsApi 
 	}
 }
 
-func (a ClusterStatisticsApi) GetPipelineIndicatorNames(group string, pipelineName string,
-	statisticsClusterRequest pdu.StatisticsClusterRequest) (*pdu.ClusterPipelineIndicatorNames, *v1.APIResponse, error) {
+func (a *ClusterStatisticsApi) GetPipelineIndicatorNames(group string, pipelineName string,
+	statisticsClusterRequest pdu.StatisticsClusterRequest) (
+	*pdu.ClusterPipelineIndicatorNames, *v1.APIResponse, error) {
 
 	method := strings.ToUpper("Get")
 	path := fmt.Sprintf("%s/%s/pipelines/%s/indicators", a.Configuration.BasePath, group, pipelineName)
@@ -87,7 +88,7 @@ func (a ClusterStatisticsApi) GetPipelineIndicatorNames(group string, pipelineNa
 	return pdu, ret, err
 }
 
-func (a ClusterStatisticsApi) GetPipelineIndicatorDesc(group string, pipelineName string, indicatorName string,
+func (a *ClusterStatisticsApi) GetPipelineIndicatorDesc(group string, pipelineName string, indicatorName string,
 	statisticsClusterRequest pdu.StatisticsClusterRequest) (
 	*pdu.ClusterPipelineIndicatorDescription, *v1.APIResponse, error) {
 
@@ -141,7 +142,7 @@ func (a ClusterStatisticsApi) GetPipelineIndicatorDesc(group string, pipelineNam
 	return pdu, ret, err
 }
 
-func (a ClusterStatisticsApi) GetPipelineIndicatorValue(group string, pipelineName string, indicatorName string,
+func (a *ClusterStatisticsApi) GetPipelineIndicatorValue(group string, pipelineName string, indicatorName string,
 	statisticsClusterRequest *pdu.StatisticsClusterRequest) (
 	*pdu.ClusterPipelineIndicatorValue, *v1.APIResponse, error) {
 
@@ -195,7 +196,7 @@ func (a ClusterStatisticsApi) GetPipelineIndicatorValue(group string, pipelineNa
 	return pdu, ret, err
 }
 
-func (a ClusterStatisticsApi) GetPluginIndicatorNames(group string, pipelineName string, pluginName string,
+func (a *ClusterStatisticsApi) GetPluginIndicatorNames(group string, pipelineName string, pluginName string,
 	statisticsClusterRequest *pdu.StatisticsClusterRequest) (
 	*pdu.ClusterPluginIndicatorNames, *v1.APIResponse, error) {
 
@@ -249,7 +250,7 @@ func (a ClusterStatisticsApi) GetPluginIndicatorNames(group string, pipelineName
 	return pdu, ret, err
 }
 
-func (a ClusterStatisticsApi) GetPluginIndicatorDesc(group string, pipelineName string, pluginName string,
+func (a *ClusterStatisticsApi) GetPluginIndicatorDesc(group string, pipelineName string, pluginName string,
 	indicatorName string, statisticsClusterRequest *pdu.StatisticsClusterRequest) (
 	*pdu.ClusterPluginIndicatorDescription, *v1.APIResponse, error) {
 
@@ -304,7 +305,7 @@ func (a ClusterStatisticsApi) GetPluginIndicatorDesc(group string, pipelineName 
 	return pdu, ret, err
 }
 
-func (a ClusterStatisticsApi) GetPluginIndicatorValue(group string, pipelineName string, pluginName string,
+func (a *ClusterStatisticsApi) GetPluginIndicatorValue(group string, pipelineName string, pluginName string,
 	indicatorName string, statisticsClusterRequest *pdu.StatisticsClusterRequest) (
 	*pdu.ClusterPluginIndicatorValue, *v1.APIResponse, error) {
 
@@ -358,8 +359,9 @@ func (a ClusterStatisticsApi) GetPluginIndicatorValue(group string, pipelineName
 	return pdu, ret, err
 }
 
-func (a ClusterStatisticsApi) GetTaskIndicatorNames(group string, pipelineName string,
-	statisticsClusterRequest *pdu.StatisticsClusterRequest) (*pdu.ClusterTaskIndicatorNames, *v1.APIResponse, error) {
+func (a *ClusterStatisticsApi) GetTaskIndicatorNames(group string, pipelineName string,
+	statisticsClusterRequest *pdu.StatisticsClusterRequest) (
+	*pdu.ClusterTaskIndicatorNames, *v1.APIResponse, error) {
 
 	method := strings.ToUpper("Get")
 	path := fmt.Sprintf("%s/%s/pipelines/%s/task/indicators", a.Configuration.BasePath, group, pipelineName)
@@ -410,7 +412,7 @@ func (a ClusterStatisticsApi) GetTaskIndicatorNames(group string, pipelineName s
 	return pdu, ret, err
 }
 
-func (a ClusterStatisticsApi) GetTaskIndicatorDesc(group string, pipelineName string, indicatorName string,
+func (a *ClusterStatisticsApi) GetTaskIndicatorDesc(group string, pipelineName string, indicatorName string,
 	statisticsClusterRequest *pdu.StatisticsClusterRequest) (
 	*pdu.ClusterTaskIndicatorDescription, *v1.APIResponse, error) {
 
@@ -465,7 +467,7 @@ func (a ClusterStatisticsApi) GetTaskIndicatorDesc(group string, pipelineName st
 
 }
 
-func (a ClusterStatisticsApi) GetTaskIndicatorValue(group string, pipelineName string, indicatorName string,
+func (a *ClusterStatisticsApi) GetTaskIndicatorValue(group string, pipelineName string, indicatorName string,
 	statisticsClusterRequest *pdu.StatisticsClusterRequest) (
 	*pdu.ClusterTaskIndicatorValue, *v1.APIResponse, error) {
 

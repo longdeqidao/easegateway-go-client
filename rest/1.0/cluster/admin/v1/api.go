@@ -35,7 +35,7 @@ func NewClusterAdminApiWithBasePath(basePath string) *ClusterAdminApi {
 	}
 }
 
-func (a ClusterAdminApi) GetPipelineTypes(group string, clusterRetrieveRequest *pdu.ClusterRetrieveRequest) (
+func (a *ClusterAdminApi) GetPipelineTypes(group string, clusterRetrieveRequest *pdu.ClusterRetrieveRequest) (
 	*pdu.PipelineTypesRetrieveClusterResponse, *v1.APIResponse, error) {
 
 	method := strings.ToUpper("Get")
@@ -86,7 +86,7 @@ func (a ClusterAdminApi) GetPipelineTypes(group string, clusterRetrieveRequest *
 	return pdu, ret, err
 }
 
-func (a ClusterAdminApi) GetPipelines(group string,
+func (a *ClusterAdminApi) GetPipelines(group string,
 	pipelinesRetrieveClusterRequest *pdu.PipelinesRetrieveClusterRequest) (
 	*pdu.PipelinesRetrieveClusterResponse, *v1.APIResponse, error) {
 
@@ -139,7 +139,7 @@ func (a ClusterAdminApi) GetPipelines(group string,
 	return pdu, ret, err
 }
 
-func (a ClusterAdminApi) DeletePipelineByName(group string, pipelineName string,
+func (a *ClusterAdminApi) DeletePipelineByName(group string, pipelineName string,
 	clusterOperationRequest *pdu.ClusterOperationRequest) (*v1.APIResponse, error) {
 
 	method := strings.ToUpper("Delete")
@@ -187,7 +187,7 @@ func (a ClusterAdminApi) DeletePipelineByName(group string, pipelineName string,
 	return ret, err
 }
 
-func (a ClusterAdminApi) GetPipelineByName(group string, pipelineName string,
+func (a *ClusterAdminApi) GetPipelineByName(group string, pipelineName string,
 	clusterRetrieveRequest *pdu.ClusterRetrieveRequest) (*pdu.PipelineSpec, *v1.APIResponse, error) {
 
 	method := strings.ToUpper("Get")
@@ -238,7 +238,7 @@ func (a ClusterAdminApi) GetPipelineByName(group string, pipelineName string,
 	return pdu, ret, err
 }
 
-func (a ClusterAdminApi) CreatePipeline(group string,
+func (a *ClusterAdminApi) CreatePipeline(group string,
 	pipelineCreationClusterRequest *pdu.PipelineCreationClusterRequest) (*v1.APIResponse, error) {
 
 	method := strings.ToUpper("Post")
@@ -287,7 +287,7 @@ func (a ClusterAdminApi) CreatePipeline(group string,
 	return ret, err
 }
 
-func (a ClusterAdminApi) UpdatePipeline(group string,
+func (a *ClusterAdminApi) UpdatePipeline(group string,
 	pipelineUpdateClusterRequest *pdu.PipelineUpdateClusterRequest) (*v1.APIResponse, error) {
 
 	method := strings.ToUpper("Put")
@@ -336,7 +336,7 @@ func (a ClusterAdminApi) UpdatePipeline(group string,
 	return ret, err
 }
 
-func (a ClusterAdminApi) GetPluginTypes(group string, clusterRetrieveRequest *pdu.ClusterRetrieveRequest) (
+func (a *ClusterAdminApi) GetPluginTypes(group string, clusterRetrieveRequest *pdu.ClusterRetrieveRequest) (
 	*pdu.PluginTypesRetrieveClusterResponse, *v1.APIResponse, error) {
 
 	method := strings.ToUpper("Get")
@@ -387,7 +387,7 @@ func (a ClusterAdminApi) GetPluginTypes(group string, clusterRetrieveRequest *pd
 	return pdu, ret, err
 }
 
-func (a ClusterAdminApi) GetPlugins(group string, pluginsRetrieveClusterRequest *pdu.PluginsRetrieveClusterRequest) (
+func (a *ClusterAdminApi) GetPlugins(group string, pluginsRetrieveClusterRequest *pdu.PluginsRetrieveClusterRequest) (
 	*pdu.PluginsRetrieveClusterResponse, *v1.APIResponse, error) {
 
 	method := strings.ToUpper("Get")
@@ -439,7 +439,7 @@ func (a ClusterAdminApi) GetPlugins(group string, pluginsRetrieveClusterRequest 
 	return pdu, ret, err
 }
 
-func (a ClusterAdminApi) DeletePluginByName(group string, pluginName string,
+func (a *ClusterAdminApi) DeletePluginByName(group string, pluginName string,
 	clusterOperationRequest *pdu.ClusterOperationRequest) (*v1.APIResponse, error) {
 
 	method := strings.ToUpper("Delete")
@@ -487,7 +487,7 @@ func (a ClusterAdminApi) DeletePluginByName(group string, pluginName string,
 	return ret, err
 }
 
-func (a ClusterAdminApi) GetPluginByName(group string, pluginName string,
+func (a *ClusterAdminApi) GetPluginByName(group string, pluginName string,
 	clusterRetrieveRequest *pdu.ClusterRetrieveRequest) (*pdu.PluginSpec, *v1.APIResponse, error) {
 
 	method := strings.ToUpper("Get")
@@ -538,7 +538,7 @@ func (a ClusterAdminApi) GetPluginByName(group string, pluginName string,
 	return pdu, ret, err
 }
 
-func (a ClusterAdminApi) CreatePlugin(group string,
+func (a *ClusterAdminApi) CreatePlugin(group string,
 	pluginCreationClusterRequest *pdu.PluginCreationClusterRequest) (*v1.APIResponse, error) {
 
 	method := strings.ToUpper("Post")
@@ -587,7 +587,7 @@ func (a ClusterAdminApi) CreatePlugin(group string,
 	return ret, err
 }
 
-func (a ClusterAdminApi) UpdatePlugin(group string,
+func (a *ClusterAdminApi) UpdatePlugin(group string,
 	pluginUpdateClusterRequest *pdu.PluginUpdateClusterRequest) (*v1.APIResponse, error) {
 
 	method := strings.ToUpper("Put")
@@ -635,7 +635,7 @@ func (a ClusterAdminApi) UpdatePlugin(group string,
 	return ret, err
 }
 
-func (a ClusterAdminApi) GetMaxOperationSequence(group string,
+func (a *ClusterAdminApi) GetMaxOperationSequence(group string,
 	clusterOperationSeqRetrieveRequest *pdu.ClusterOperationSeqRetrieveRequest) (
 	*pdu.ClusterOperationSeqRetrieveResponse, *v1.APIResponse, error) {
 
