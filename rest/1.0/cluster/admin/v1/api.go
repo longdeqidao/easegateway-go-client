@@ -587,7 +587,7 @@ func (a ClusterAdminApi) CreatePlugin(group string,
 	return ret, err
 }
 
-func (a ClusterAdminApi) GroupPluginsPut(group string,
+func (a ClusterAdminApi) UpdatePlugin(group string,
 	pluginUpdateClusterRequest *pdu.PluginUpdateClusterRequest) (*v1.APIResponse, error) {
 
 	method := strings.ToUpper("Put")
@@ -633,4 +633,57 @@ func (a ClusterAdminApi) GroupPluginsPut(group string,
 	}
 
 	return ret, err
+}
+
+func (a ClusterAdminApi) GetMaxOperationSequence(group string,
+	clusterOperationSeqRetrieveRequest *pdu.ClusterOperationSeqRetrieveRequest) (
+	*pdu.ClusterOperationSeqRetrieveResponse, *v1.APIResponse, error) {
+
+	method := strings.ToUpper("Get")
+	path := fmt.Sprintf("%s/%s/sequence", a.Configuration.BasePath, group)
+	headers := make(map[string]string)
+	queryParams := url.Values{}
+
+	// add default headers if any
+	for key := range a.Configuration.DefaultHeader {
+		headers[key] = a.Configuration.DefaultHeader[key]
+	}
+
+	// set Content-Type header
+	contentType := a.Configuration.APIClient.SelectHeaderContentType([]string{"application/json"})
+	if contentType != "" {
+		headers["Content-Type"] = contentType
+	}
+
+	// set Accept header
+	accept := a.Configuration.APIClient.SelectHeaderAccept([]string{"application/json"})
+	if accept != "" {
+		headers["Accept"] = accept
+	}
+
+	pdu := new(pdu.ClusterOperationSeqRetrieveResponse)
+	response, err := a.Configuration.APIClient.CallAPI(
+		path, method, clusterOperationSeqRetrieveRequest, headers, queryParams)
+
+	ret := v1.NewAPIResponse("GetMaxOperationSequence", method, path, queryParams)
+	if response != nil {
+		ret.Response = response.RawResponse
+		ret.Payload = response.Body()
+	}
+
+	if err != nil {
+		return pdu, ret, err
+	}
+
+	if response.StatusCode() == http.StatusOK {
+		err = json.Unmarshal(response.Body(), pdu)
+	} else if response.StatusCode() >= http.StatusBadRequest && len(response.Body()) > 0 {
+		e := new(common_pdu.Error)
+		err = json.Unmarshal(response.Body(), e)
+		if err == nil {
+			ret.Error = e
+		}
+	}
+
+	return pdu, ret, err
 }
