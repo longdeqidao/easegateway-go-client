@@ -18,7 +18,7 @@ go get -d -v github.com/hexdecteam/easegateway-go-client
 import "github.com/hexdecteam/easegateway-go-client"
 ```
 
-## Documentation for Administration API Endpoints
+## Administration API Endpoints
 
 All URIs are relative to *http://localhost:9090/admin/v1*
 
@@ -37,7 +37,7 @@ Class | Method | HTTP request | Description
 *AdminApi* | **CreatePlugin** | **Post** /plugins | Creates plugin instance
 *AdminApi* | **UpdatePlugin** | **Put** /plugins | Updates plugin instance
 
-## Documentation for Statistics API Endpoints
+## Statistics API Endpoints
 
 All URIs are relative to *http://localhost:9090/statistics/v1*
 
@@ -56,10 +56,46 @@ Class | Method | HTTP request | Description
 *StatisticsApi* | **GetTaskIndicatorValue** | **Get** /pipelines/{pipelineName}/task/indicators/{indicatorName}/value | Retrieves task statistics indicator value
 *StatisticsApi* | **GetTaskIndicatorDesc** | **Get** /pipelines/{pipelineName}/task/indicators/{indicatorName}/desc | Retrieves task statistics indicator description
 
-## Documentation for Health API Endpoints
+## Health API Endpoints
 
 All URIs are relative to *http://localhost:9090/health/v1*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *HealthApi* | **Check** | **Get** /check | Checks gateway service instance existing
+
+## Cluster Administration API Endpoints
+
+All URIs are relative to *http://localhost:9090/cluster/admin/v1*
+
+Class | Method | HTTP request | Description
+------------ | ------------- | ------------- | -------------
+*ClusterAdminApi* | **GetMaxOperationSequence** | **Get** /{group}/sequence | Retrieves maximum operation sequence in a group
+*ClusterAdminApi* | **GetPipelineTypes** | **Get** /{group}/pipeline-types | Retrieves pipeline type in a group
+*ClusterAdminApi* | **GetPipelines** | **Get** /{group}/pipelines | Retrieves pipeline instances in a group
+*ClusterAdminApi* | **DeletePipelineByName** | **Delete** /{group}/pipelines/{pipelineName} | Deletes pipeline instance in a group
+*ClusterAdminApi* | **GetPipelineByName** | **Get** /{group}/pipelines/{pipelineName} | Retrieves pipeline instance in a group
+*ClusterAdminApi* | **CreatePipeline** | **Post** /{group}/pipelines | Creates pipeline instance in a group
+*ClusterAdminApi* | **UpdatePipeline** | **Put** /{group}/pipelines | Updates pipeline instance in a group
+*ClusterAdminApi* | **GetPluginTypes** | **Get** /{group}/plugin-types | Retrieves plugin type in a group
+*ClusterAdminApi* | **GetPlugins** | **Get** /{group}/plugins | Retrieves plugin instances in a group
+*ClusterAdminApi* | **DeletePluginByName** | **Delete** /{group}/plugins/{pluginName} | Deletes plugin instance in a group
+*ClusterAdminApi* | **GetPluginByName** | **Get** /{group}/plugins/{pluginName} | Retrieves plugin instance in a group
+*ClusterAdminApi* | **CreatePlugin** | **Post** /{group}/plugins | Creates plugin instance in a group
+*ClusterAdminApi* | **UpdatePlugin** | **Put** /{group}/plugins | Updates plugin instance in a group
+
+## Cluster Statistics API Endpoints
+
+All URIs are relative to *http://localhost:9090/cluster/statistics/v1*
+
+Class | Method | HTTP request | Description
+------------ | ------------- | ------------- | -------------
+*ClusterStatisticsApi* | **GetPipelineIndicatorNames** | **Get** /{group}/pipelines/{pipelineName}/indicators | Retrieves pipeline statistics indicator names in a group
+*ClusterStatisticsApi* | **GetPipelineIndicatorValue** | **Get** /{group}/pipelines/{pipelineName}/indicators/{indicatorName}/value | Retrieves pipeline statistics indicator value in a group
+*ClusterStatisticsApi* | **GetPipelineIndicatorDesc** | **Get** /{group}/pipelines/{pipelineName}/indicators/{indicatorName}/desc | Retrieves pipeline statistics indicator description in a group
+*ClusterStatisticsApi* | **GetPluginIndicatorNames** | **Get** /{group}/pipelines/{pipelineName}/plugins/{pluginName}/indicators | Retrieves plugin statistics indicator names in a group
+*ClusterStatisticsApi* | **GetPluginIndicatorValue** | **Get** /{group}/pipelines/{pipelineName}/plugins/{pluginName}/indicators/{indicatorName}/value | Retrieves plugin statistics indicator value in a group
+*ClusterStatisticsApi* | **GetPluginIndicatorDesc** | **Get** /{group}/pipelines/{pipelineName}/plugins/{pluginName}/indicators/{indicatorName}/desc | Retrieves plugin statistics indicator description in a group
+*ClusterStatisticsApi* | **GetTaskIndicatorNames** | **Get** /{group}/pipelines/{pipelineName}/task/indicators | Retrieves task statistics indicator names in a group
+*ClusterStatisticsApi* | **GetTaskIndicatorValue** | **Get** /{group}/pipelines/{pipelineName}/task/indicators/{indicatorName}/value | Retrieves task statistics indicator value in a group
+*ClusterStatisticsApi* | **GetTaskIndicatorDesc** | **Get** /{group}/pipelines/{pipelineName}/task/indicators/{indicatorName}/desc | Retrieves task statistics indicator description in a group
