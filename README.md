@@ -63,6 +63,7 @@ All URIs are relative to *http://localhost:9090/health/v1*
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *HealthApi* | **Check** | **Get** /check | Checks gateway service instance existing
+*HealthApi* | **GetInfo** | **Get** /info | Retrieves gateway service instance information
 
 ## Cluster Administration API Endpoints
 
