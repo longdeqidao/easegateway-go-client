@@ -9,6 +9,7 @@ import (
 
 	"github.com/hexdecteam/easegateway-go-client/rest/1.0/common/v1"
 	common_pdu "github.com/hexdecteam/easegateway-go-client/rest/1.0/common/v1/pdu"
+	"github.com/hexdecteam/easegateway-go-client/rest/1.0/health/v1/pdu"
 )
 
 type HealthApi struct {
@@ -77,4 +78,53 @@ func (a *HealthApi) Check() (*v1.APIResponse, error) {
 	}
 
 	return ret, err
+}
+
+func (a *HealthApi) GetInfo() (*pdu.HealthInfoResponse, *v1.APIResponse, error) {
+	method := strings.ToUpper("Get")
+	path := a.Configuration.BasePath + "/info"
+	headers := make(map[string]string)
+	queryParams := url.Values{}
+
+	// add default headers if any
+	for key := range a.Configuration.DefaultHeader {
+		headers[key] = a.Configuration.DefaultHeader[key]
+	}
+
+	// set Content-Type header
+	contentTypes := a.Configuration.APIClient.SelectHeaderContentType([]string{"application/json"})
+	if contentTypes != "" {
+		headers["Content-Type"] = contentTypes
+	}
+
+	// set Accept header
+	accepts := a.Configuration.APIClient.SelectHeaderAccept([]string{"application/json"})
+	if accepts != "" {
+		headers["Accept"] = accepts
+	}
+
+	pdu := new(pdu.HealthInfoResponse)
+	response, err := a.Configuration.APIClient.CallAPI(path, method, nil, headers, queryParams)
+
+	ret := v1.NewAPIResponse("GetInfo", method, path, queryParams)
+	if response != nil {
+		ret.Response = response.RawResponse
+		ret.Payload = response.Body()
+	}
+
+	if err != nil {
+		return pdu, ret, err
+	}
+
+	if response.StatusCode() == http.StatusOK {
+		err = json.Unmarshal(response.Body(), pdu)
+	} else if response.StatusCode() >= http.StatusBadRequest && len(response.Body()) > 0 {
+		e := new(common_pdu.Error)
+		err = json.Unmarshal(response.Body(), e)
+		if err == nil {
+			ret.Error = e
+		}
+	}
+
+	return pdu, ret, err
 }
