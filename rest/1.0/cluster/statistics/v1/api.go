@@ -36,7 +36,7 @@ func NewClusterStatisticsApiWithBasePath(basePath string) *ClusterStatisticsApi 
 }
 
 func (a *ClusterStatisticsApi) GetPipelineIndicatorNames(group string, pipelineName string,
-	statisticsClusterRequest pdu.StatisticsClusterRequest) (
+	statisticsClusterRequest *pdu.StatisticsClusterRequest) (
 	*pdu.ClusterPipelineIndicatorNames, *v1.APIResponse, error) {
 
 	method := strings.ToUpper("Get")
@@ -89,7 +89,7 @@ func (a *ClusterStatisticsApi) GetPipelineIndicatorNames(group string, pipelineN
 }
 
 func (a *ClusterStatisticsApi) GetPipelineIndicatorDesc(group string, pipelineName string, indicatorName string,
-	statisticsClusterRequest pdu.StatisticsClusterRequest) (
+	statisticsClusterRequest *pdu.StatisticsClusterRequest) (
 	*pdu.ClusterPipelineIndicatorDescription, *v1.APIResponse, error) {
 
 	method := strings.ToUpper("Get")
