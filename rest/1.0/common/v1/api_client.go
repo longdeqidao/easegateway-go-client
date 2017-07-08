@@ -83,6 +83,9 @@ func (c *APIClient) prepareClient() *resty.Client {
 		rClient.SetTimeout(*c.config.Timeout)
 	}
 	rClient.SetLogger(ioutil.Discard)
+
+	rClient.SetAllowGetMethodPayload(true)
+
 	return rClient
 }
 
