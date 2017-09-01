@@ -1,3 +1,8 @@
+email:
+  username: service@easeapm.com
+  password: aU&x3v@xOw5FIDnb
+
+plugins:
 - name: build_app
   shell: make vendor_get && make
   notifications:
