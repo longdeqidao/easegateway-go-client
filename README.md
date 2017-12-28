@@ -48,6 +48,7 @@ Class | Method | HTTP request | Description
 *StatisticsApi* | **GetGatewayUpTime** | **Get** /gateway/uptime | Retrieves up time of gateway service instance
 *StatisticsApi* | **GetPipelineIndicatorNames** | **Get** /pipelines/{pipelineName}/indicators | Retrieves pipeline statistics indicator names
 *StatisticsApi* | **GetPipelineIndicatorValue** | **Get** /pipelines/{pipelineName}/indicators/{indicatorName}/value | Retrieves pipeline statistics indicator value
+*StatisticsApi* | **GetPipelineIndicatorsValue** | **Get** /pipelines/{pipelineName}/indicators/value | Retrieves pipeline statistics values from multiple indicators
 *StatisticsApi* | **GetPipelineIndicatorDesc** | **Get** /pipelines/{pipelineName}/indicators/{indicatorName}/desc | Retrieves pipeline statistics indicator description
 *StatisticsApi* | **GetPluginIndicatorNames** | **Get** /pipelines/{pipelineName}/plugins/{pluginName}/indicators | Retrieves plugin statistics indicator names
 *StatisticsApi* | **GetPluginIndicatorValue** | **Get** /pipelines/{pipelineName}/plugins/{pluginName}/indicators/{indicatorName}/value | Retrieves plugin statistics indicator value
@@ -93,6 +94,7 @@ Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *ClusterStatisticsApi* | **GetPipelineIndicatorNames** | **Get** /{group}/pipelines/{pipelineName}/indicators | Retrieves pipeline statistics indicator names in a group
 *ClusterStatisticsApi* | **GetPipelineIndicatorValue** | **Get** /{group}/pipelines/{pipelineName}/indicators/{indicatorName}/value | Retrieves pipeline statistics indicator value in a group
+*ClusterStatisticsApi* | **GetPipelineIndicatorsValue** | **Get** /{group}/pipelines/{pipelineName}/indicators/value | Retrieves pipeline statistics values from multiple indicators in a group
 *ClusterStatisticsApi* | **GetPipelineIndicatorDesc** | **Get** /{group}/pipelines/{pipelineName}/indicators/{indicatorName}/desc | Retrieves pipeline statistics indicator description in a group
 *ClusterStatisticsApi* | **GetPluginIndicatorNames** | **Get** /{group}/pipelines/{pipelineName}/plugins/{pluginName}/indicators | Retrieves plugin statistics indicator names in a group
 *ClusterStatisticsApi* | **GetPluginIndicatorValue** | **Get** /{group}/pipelines/{pipelineName}/plugins/{pluginName}/indicators/{indicatorName}/value | Retrieves plugin statistics indicator value in a group
