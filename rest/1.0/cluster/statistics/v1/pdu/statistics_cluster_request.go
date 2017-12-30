@@ -6,5 +6,5 @@ import (
 
 type StatisticsClusterRequest struct {
 	common_pdu.ClusterRequest
-	Details bool `json:"details,omitempty"`
+	Detail bool `json:"detail,omitempty"`
 }
