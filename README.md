@@ -102,3 +102,16 @@ Class | Method | HTTP request | Description
 *ClusterStatisticsApi* | **GetTaskIndicatorNames** | **Get** /{group}/pipelines/{pipelineName}/task/indicators | Retrieves task statistics indicator names in a group
 *ClusterStatisticsApi* | **GetTaskIndicatorValue** | **Get** /{group}/pipelines/{pipelineName}/task/indicators/{indicatorName}/value | Retrieves task statistics indicator value in a group
 *ClusterStatisticsApi* | **GetTaskIndicatorDesc** | **Get** /{group}/pipelines/{pipelineName}/task/indicators/{indicatorName}/desc | Retrieves task statistics indicator description in a group
+
+## Cluster Administration API Endpoints
+
+All URIs are relative to *http://localhost:9090/cluster/health/v1*
+
+Class | Method | HTTP request | Description
+------------ | ------------- | ------------- | -------------
+*ClusterHealthApi* | **GetGroupHealth** | **Get** /check/groups/{group} | Retrieves health check status in a group
+*ClusterHealthApi* | **GetGroupsHealth** | **Get** /check/groups | Retrieves health check status in a cluster
+*ClusterHealthApi* | **GetGroups** | **Get** /info/groups | Retrieves groups in a cluster
+*ClusterHealthApi* | **GetMembers** | **Get** /info/groups/{group}/members | Retrieves members in a group
+*ClusterHealthApi* | **GetGroup** | **Get** /info/groups/{group} | Retrieves group information in a cluster
+*ClusterHealthApi* | **GetMember** | **Get** /info/groups/{group}/members/{member} | Retrieves member information in a group
